@@ -1,1 +1,134 @@
 /* You can add global styles to this file, and also import other style files */
+$theme-colors: (
+    "primary": #0058ff,
+    "secondary": #57b8ff,
+    "danger": #f0142f,
+    "orange": #f99600,
+    "success": #21d59b,
+    "warning": #ffc700,
+    "dark": #131523,
+    "grey": #d5d7e3,
+    "grey-dark": #7e84a3,
+    "grey-ligth": #f5f6fa,
+    "grey-ligth-2": #e6e9f4,
+    "grey-ligth-3": #d7dbec,
+);
+
+$primary: #0058ff;
+$secondary: #57b8ff;
+$danger: #f0142f;
+$orange: #f99600;
+$success: #21d59b;
+$warning: #ffc700;
+$dark: #131523;
+$grey: #d5d7e3;
+$grey-dark: #7e84a3;
+$grey-ligth: #f5f6fa;
+$grey-ligth-2: #e6e9f4;
+$grey-ligth-3: #d7dbec;
+
+.offcanvas-start {
+    width: 300px;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: revert;
+    border-top-right-radius: revert;
+}
+.list-group-item.active {
+    z-index: 2;
+    color: #0b568b;
+    background-color: $secondary;
+    border-color: $secondary;
+    text-transform: uppercase;
+    border-right: 5px solid #0b568b;
+}
+
+.list-group-item {
+    text-transform: uppercase;
+    font-size: 16px;
+    color: $grey-dark;
+    border: 0px solid rgba(0, 0, 0, 0.125) !important;
+}
+
+.list-group-item:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.125);
+}
+
+.list-group-item > .fa {
+    font-size: 23px;
+    margin-right: 1em;
+}
+
+.offcanvas-title {
+    font-size: 35px;
+    color: $secondary;
+}
+
+.accordion-body {
+    padding: 1rem 0rem;
+}
+
+.accordion-button {
+    color: $grey-dark;
+}
+
+.accordion-item {
+    border: 0px solid rgba(0, 0, 0, 0.125);
+}
+
+.bg-light {
+    --bs-bg-opacity: 1;
+    background-color: #fff !important;
+}
+
+.navbar-brand {
+    color: $grey-dark !important;
+}
+
+.user-list {
+    color: $dark;
+    cursor: none;
+    i {
+        font-size: 35px;
+    }
+    p {
+        font-size: 12px;
+        margin-bottom: 0px;
+    }
+    .profile {
+        font-weight: 600;
+    }
+    .date {
+        font-size: 12px;
+        i {
+            font-size: 12px;
+        }
+    }
+}
+
+.navbar-light .navbar-toggler {
+    color: rgb(255 255 255 / 55%);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+.title-page {
+    text-transform: uppercase;
+    color: $dark;
+}
+
+.card {
+    border-radius: 0px;
+    .lead {
+        font-size: 16px;
+    }
+    .small {
+        font-size: 12px;
+    }
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+.icon-circle {
+    color: $grey-dark;
+    font-size: 50px;
+}

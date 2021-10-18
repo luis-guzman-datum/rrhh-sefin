@@ -1,0 +1,32 @@
+<app-navbar title="Pagina demo"></app-navbar>
+<br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-primary btn-sm">Nuevo</button>
+        </div>
+        <div class="col-md-10">
+            <input type="text" class="form-control form-control-sm" placeholder="Buscar">
+        </div>
+        <div class="col-md-12 mt-4">
+            <table class="table table-sm table-border">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Url</td>
+                        <td>is_hidden</td>
+                        <td>slot</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of Pokemns">
+                        <td>{{i.ability.name}}</td>
+                        <td>{{i.ability.url}}</td>
+                        <td >{{i.is_hidden== true ? 'Verdadero': 'Falso'}}</td>
+                        <td>{{i.slot}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
