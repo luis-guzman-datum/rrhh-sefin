@@ -15,6 +15,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import { DemoComponent } from './pages/demo/demo.component';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { DemoComponent } from './pages/demo/demo.component';
     ReactiveFormsModule,
     NgxSpinnerModule,
     HttpClientModule,
+    OAuthModule.forRoot()
   ],
   providers: [
     ApiService
