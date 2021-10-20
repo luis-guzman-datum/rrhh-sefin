@@ -5,8 +5,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <h3 class="title-page">{{title}}</h3>
-
-    <a class="navbar-brand" href="#">RRHH - SEFIN</a>
+    <button (click)="logOutP()">logout</button>
 
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbar">
@@ -23,12 +22,11 @@
               </div>
               <div class="col-md-12">
                 <p class="lead text-center">
-                  Luis Alonso Guzman Espinoza
+                  {{getInfoUsuario().primer_nombre+' '+getInfoUsuario().primer_apellido}}
                 </p>
-                <p class="profile text-center">Administrador</p>
                 <p class="date text-center">
                   <i class="fa fa-calendar"></i>
-                  22/10/2021
+                  {{today|date:'dd/MM/yyyy' }}
                 </p>
               </div>
             </div>
@@ -39,33 +37,27 @@
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                  aria-expanded="true" aria-controls="collapseOne">
-                  PRINCIPAL
-
+                   aria-controls="collapseOne">
+                  Recursos Humanos
                 </button>
               </h2>
               <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                 data-bs-parent="#accordionExample">
                 <div class="accordion-body">
 
-                  <li class="list-group-item active" aria-current="true">
+                  <li class="list-group-item" [routerLink]="['/home']">
                     <i class="fa fa-home"></i>
-                    Home
+                    Dash Board
                   </li>
-                  <li class="list-group-item">
+                  <li class="list-group-item" [routerLink]="['/pase-salida']">
 
-                    <i class="fa fa-envelope"></i>
-                    Email
-                    <span class="badge rounded-pill bg-danger">99+</span>
+                    <i class="fa fa-file-o"></i>
+                    Solicitud Pase de Salida
                   </li>
 
-                  <li class="list-group-item">
-                    <i class="fa fa-font-awesome"></i>
-                    Menu
-                  </li>
-                  <li class="list-group-item">
-                    <i class="fa fa-font-awesome"></i>
-                    Menu
+                  <li class="list-group-item" [routerLink]="['/solicitud-vacaciones']">
+                    <i class="fa fa-cube"></i>
+                    Solicitud de Vacaciones
                   </li>
                 </div>
               </div>

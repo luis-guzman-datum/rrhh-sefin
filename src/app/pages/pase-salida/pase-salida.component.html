@@ -1,0 +1,60 @@
+<app-navbar title="Solicitud Pase de Salida"></app-navbar>
+<div class="container">
+    <mat-tab-group>
+        <mat-tab label="Solicitud Pase de Salida">
+            <div class="row">
+                <div class="col-md-12">
+                    <form [formGroup]="formPaseSalida" class="row" (ngSubmit)="submit()">
+                        <div class="form-group">
+                            <label for="fecha">Fecha</label>
+                            <input type="date" formControlName="fecha" name="fecha" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="asunto">Asunto</label>
+                            <input type="text" formControlName="asunto" name="asunto" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="solicitud_pase_salida_tipo_id">Tipo</label>
+                            <select name="solicitud_pase_salida_tipo_id" id="solicitud_pase_salida_tipo_id" formControlName="solicitud_pase_salida_tipo_id" class="form-control">
+                                <option *ngFor="let i of infoTipoPase" value={{i.value}}>{{i.descripcion}}</option>
+                            </select>
+        
+                        </div>
+                        <div class="form-group">
+                            <label for="hora_salida">Hora de Salida</label>
+                            <input type="time" formControlName="hora_salida" name="hora_salida" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="hora_entrada">Hora de Entrada</label>
+                            <input type="time" formControlName="hora_entrada" name="hora_entrada" class="form-control">
+                        </div>
+                        <div class="form-control">
+                            <button type="submit">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Historial">
+            <table class="table table-sm table-bordered">
+                <thead>
+                    <tr>
+                        <td>Numero Solicitud</td>
+                        <td>Tarea</td>
+                        <td>Descripcion</td>
+                        <td>Fecha</td>
+                        <td>Estado</td>
+                        <td>Revisar</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </mat-tab>
+    </mat-tab-group>
+    
+</div>
+
+<pre>{{formPaseSalida.value | json}}</pre>
+<simple-notifications [options]="options"></simple-notifications>

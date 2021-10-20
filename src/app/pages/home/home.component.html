@@ -1,110 +1,49 @@
-<app-navbar title="Pantalla de inicio"></app-navbar>
+<app-navbar title="Dash Board - RRHH"></app-navbar>
 
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <p class="lead">Bienvenido al sistema Luis Guzmán</p>
+      <p class="lead">Bienvenido al sistema {{getInfoUsuario().primer_nombre}} {{getInfoUsuario().primer_apellido}}</p>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-3 col-xs-12">
-      <div class="card mb-2">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-8 col-xs-12">
-              <p class="lead">Lorem, ipsum dolor sit </p>
-              <h2>14K</h2>
-              <p class="lead small">
-                <span class="badge bg-success">
-                  2.3%
-                  <i class="fa fa-arrow-up"></i>
-                </span>
-                Lorem, ipsum dolor sit
-              </p>
-            </div>
-            <div class="col-md-4 col-xs-12">
-              <div class="align-middle text-center icon-circle">
-                <i class="fa fa-user mt-4 rounde"></i>
-              </div>
-            </div>
-          </div>
+  </div>  
+    <div class="row">
+        <div class="col-md-12 mt-4">
+            <table class="table table-sm table-bordered">
+                <thead>
+                    <tr>
+                        <td>Fecha</td>
+                        <td>Tarea</td>
+                        <td>Descripcion</td>
+                        <td>Estatus</td>
+                        <td>Revisar</td>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let d of dashBoardTask">
+                    <td>
+                      {{d.task_created_on.fecha|date:'short'}}
+                    </td>
+                    <td>
+                      {{d.task_name}}
+                    </td>
+                    <td>
+                      {{d.task_description}}
+                    </td>
+                    <td>
+                      {{d.task_status}}
+                    </td>
+                    <td class="text-center">
+                      <button class="btn btn-primary">
+                        <i class="fa fa-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                    
+                </tbody>
+            </table>
         </div>
-      </div>
     </div>
-    <div class="col-md-3 col-xs-12">
-      <div class="card mb-2">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-8 col-xs-12">
-              <p class="lead">Lorem, ipsum dolor sit </p>
-              <h2>57%</h2>
-              <p class="lead small">
-                <span class="badge bg-success">
-                  8.3%
-                  <i class="fa fa-arrow-up"></i>
-                </span>
-                Lorem, ipsum dolor sit
-              </p>
-            </div>
-            <div class="col-md-4 col-xs-12">
-              <div class="align-middle text-center icon-circle">
-                <i class="fa fa-percent mt-4 rounde"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 col-xs-12">
-      <div class="card mb-2">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-8 col-xs-12">
-              <p class="lead">Lorem, ipsum dolor sit </p>
-              <h2>400M HNL</h2>
-              <p class="lead small">
-                <span class="badge bg-danger">
-                  99.3%
-                  <i class="fa fa-arrow-down"></i>
-                </span>
-                Lorem, ipsum dolor sit
-              </p>
-            </div>
-            <div class="col-md-4 col-xs-12">
-              <div class="align-middle text-center icon-circle">
-                <i class="fa fa-money mt-4 rounde"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 col-xs-12">
-      <div class="card mb-2">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-8 col-xs-12">
-              <p class="lead">Lorem, ipsum dolor sit </p>
-              <h2>7M</h2>
-              <p class="lead small">
-                <span class="badge bg-danger">
-                  100%
-                  <i class="fa fa-pause"></i>
-                </span>
-                Lorem, ipsum dolor sit
-              </p>
-            </div>
-            <div class="col-md-4 col-xs-12">
-              <div class="align-middle text-center icon-circle">
-                <i class="fa fa-users mt-4 rounde"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
   <div class="row">
     <div class="col-md-6">

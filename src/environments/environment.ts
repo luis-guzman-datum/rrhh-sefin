@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  BASE_API_URL:'http://api-sefin-rrhh-gateway-desa-api-rrhh-pool.apps.galel.sefin.gob.hn/api'
 };
 
 /*
