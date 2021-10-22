@@ -1,137 +1,93 @@
 /* You can add global styles to this file, and also import other style files */
-$theme-colors: (
-    "primary": #0058ff,
-    "secondary": #57b8ff,
-    "danger": #f0142f,
-    "orange": #f99600,
-    "success": #21d59b,
-    "warning": #ffc700,
-    "dark": #131523,
-    "grey": #d5d7e3,
-    "grey-dark": #7e84a3,
-    "grey-ligth": #f5f6fa,
-    "grey-ligth-2": #e6e9f4,
-    "grey-ligth-3": #d7dbec,
-);
 
-$primary: #0058ff;
-$secondary: #57b8ff;
-$danger: #f0142f;
-$orange: #f99600;
-$success: #21d59b;
-$warning: #ffc700;
-$dark: #131523;
-$grey: #d5d7e3;
-$grey-dark: #7e84a3;
-$grey-ligth: #f5f6fa;
-$grey-ligth-2: #e6e9f4;
-$grey-ligth-3: #d7dbec;
-
-.offcanvas-start {
-    width: 300px;
+body {
+    background-color: #edf2f9;
+    color: #344050;
+    font-size: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-.list-group-item:first-child {
-    border-top-left-radius: revert;
-    border-top-right-radius: revert;
-}
-.list-group-item.active {
-    z-index: 2;
-    color: #0b568b;
-    background-color: $secondary;
-    border-color: $secondary;
-    text-transform: uppercase;
-    border-right: 5px solid #0b568b;
+.nav-link {
+    font-size: 14px;
+    font-weight: 500;
+    display: block;
+    padding: .5rem 1rem;
+    color: #5e6e82;
+    text-decoration: none;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
 }
 
-.list-group-item {
-    text-transform: uppercase;
-    font-size: 16px;
-    color: $grey-dark;
-    border: 0px solid rgba(0, 0, 0, 0.125) !important;
+.nav-link:focus,
+.nav-link:hover {
+    color: #232e3c;
 }
 
-.list-group-item:hover {
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.125);
+.icon-right {
+    margin-left: 2em;
+    display: none;
 }
 
-.list-group-item > .fa {
-    font-size: 23px;
-    margin-right: 1em;
+.icon-left {
+    margin-right: 0.5em;
+    font-size: 1.3em;
 }
 
-.offcanvas-title {
-    font-size: 35px;
-    color: $secondary;
+.navbar {
+    box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
 }
 
-.accordion-body {
-    padding: 1rem 0rem;
+.h2-t {
+    font-weight: 600;
+    margin-left: 0.13em;
 }
 
-.accordion-button {
-    color: $grey-dark;
+.bg-card {
+    background-size: contain;
+    background-position: right;
+    border-top-right-radius: .375rem;
+    border-bottom-right-radius: .375rem;
 }
 
-.accordion-item {
-    border: 0px solid rgba(0, 0, 0, 0.125);
+.bg-holder {
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    will-change: transform, opacity, filter;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    background-repeat: no-repeat;
+    z-index: 0;
 }
 
-.bg-light {
-    --bs-bg-opacity: 1;
-    background-color: #fff !important;
+.bg-200 {
+    background-color: #edf2f9 !important;
 }
 
-.navbar-brand {
-    color: $grey-dark !important;
+th {
+    font-weight: 600;
+    font-size: 14px !important;
 }
 
-.user-list {
-    color: $dark;
-    cursor: none;
-    i {
-        font-size: 35px;
-    }
-    p {
-        font-size: 12px;
-        margin-bottom: 0px;
-    }
-    .profile {
-        font-weight: 600;
-    }
-    .date {
-        font-size: 12px;
-        i {
-            font-size: 12px;
-        }
-    }
+.text-900 {
+    color: #344050 !important;
 }
 
-.navbar-light .navbar-toggler {
-    color: rgb(255 255 255 / 55%);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-.title-page {
-    text-transform: uppercase;
-    color: $dark;
-}
-
-.card {
-    border-radius: 0px;
-    .lead {
-        font-size: 16px;
-    }
-    .small {
-        font-size: 12px;
-    }
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-}
-.icon-circle {
-    color: $grey-dark;
-    font-size: 50px;
+//#f9fafd
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-accent-bg: transparent;
+    --bs-table-striped-color: #212529;
+    --bs-table-striped-bg: #f9fafd;
+    --bs-table-active-color: #212529;
+    --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+    --bs-table-hover-color: #212529;
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    vertical-align: top;
+    border-color: #dee2e6;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.table-borderless>thead>tr>th {
+    border: none;
+}

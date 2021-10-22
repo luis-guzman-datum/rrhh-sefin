@@ -18,24 +18,28 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.keycloak = this.keycloakSecurityService.keycloak;
     console.log(JSON.stringify(this.keycloak));
-     /*console.log('hasRealmRole', this.keycloak.hasRealmRole('app-manager'));
-     console.log('hasResourceRole', this.keycloak.hasResourceRole('app-manager'));*/
+    /*console.log('hasRealmRole', this.keycloak.hasRealmRole('app-manager'));
+    console.log('hasResourceRole', this.keycloak.hasResourceRole('app-manager'));*/
     this.isAuth = this.keycloak.authenticated;
     this.userInformations = this.isAuth ? this.keycloak.idTokenParsed : {};
-    sessionStorage.setItem("roles",JSON.stringify(this.keycloak.realmAccess));
-    if (!this.keycloak.idToken){
+    sessionStorage.setItem("roles", JSON.stringify(this.keycloak.realmAccess));
+    if (!this.keycloak.idToken) {
       this.onLogin();
-     
-    } 
-    if(this.keycloak.tokenParsed.preferred_username){
+
+    }
+    if (this.keycloak.tokenParsed.preferred_username) {
       this.getInfoEmpleado(this.keycloak.tokenParsed.preferred_username);
     }
+  }
+
+  getInfoUsuario(): any {
+    return JSON.parse(sessionStorage.getItem("userInfo") || '{}');
   }
 
   onLogin() {
     this.keycloak.login();
   }
-  onLogout() {    
+  onLogout() {
     sessionStorage.removeItem("userInfo");
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("roles");
@@ -48,14 +52,14 @@ export class AppComponent implements OnInit {
     return this.keycloak.hasRealmRole('app-manager');
   }
 
-  getInfoEmpleado(user:any) {
+  getInfoEmpleado(user: any) {
     this.api.getInfoEmpleado(user).subscribe(
       (response) => {
-        sessionStorage.setItem("userInfo",JSON.stringify(response.data));
+        sessionStorage.setItem("userInfo", JSON.stringify(response.data));
       },
       (error) => {
         alert('Ocurrio un error')
       }
     );
-}
+  }
 }

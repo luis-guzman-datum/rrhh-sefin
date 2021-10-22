@@ -1,53 +1,107 @@
-<app-navbar title="Dash Board - RRHH"></app-navbar>
+<div class="card bg-holder bg-card" style="background-image:url(../assets/images/corner-3.png);">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8 mb-4">
+                <div class=" d-flex flex-between-center mt-2">
+                    <h5 class="mb-0">Tareas pendientes </h5>
+                </div>
+            </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <p class="lead">Bienvenido al sistema {{getInfoUsuario().primer_nombre}} {{getInfoUsuario().primer_apellido}}</p>
-    </div>
-  </div>  
-    <div class="row">
-        <div class="col-md-12 mt-4">
-            <table class="table table-sm table-bordered">
-                <thead>
-                    <tr>
-                        <td>Fecha</td>
-                        <td>Tarea</td>
-                        <td>Descripcion</td>
-                        <td>Estatus</td>
-                        <td>Revisar</td>
-                    </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let d of dashBoardTask">
-                    <td>
-                      {{d.task_created_on.fecha|date:'short'}}
-                    </td>
-                    <td>
-                      {{d.task_name}}
-                    </td>
-                    <td>
-                      {{d.task_description}}
-                    </td>
-                    <td>
-                      {{d.task_status}}
-                    </td>
-                    <td class="text-center">
-                      <button class="btn btn-primary">
-                        <i class="fa fa-eye"></i>
-                      </button>
-                    </td>
-                  </tr>
-                    
-                </tbody>
-            </table>
+            <div class="col-md-12">
+                <ul class="nav nav-tabs" id="myTab" role="tablist" style="display: none;">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pase-salida-tab" data-bs-toggle="tab"
+                            data-bs-target="#pase-salida" type="button" role="tab" aria-controls="pase-salida"
+                            aria-selected="true">Pases de
+                            salida</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="ingresar-tab" data-bs-toggle="tab" data-bs-target="#aprob"
+                            type="button" role="tab" aria-controls="aprob" aria-selected="false">Aprobar
+                            solicitudes</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="aprob-tab" data-bs-toggle="tab" data-bs-target="#aprob"
+                            type="button" role="tab" aria-controls="aprob" aria-selected="false">
+                            Historico</button>
+                    </li>
+                </ul>
+                <div class="tab-content " id="myTabContent">
+                    <div class="tab-pane fade show active " id="pase-salida" role="tabpanel"
+                        aria-labelledby="pase-salida-tab">
+                        <div class="row mt-4 ">
+                            <div class="col-md-2">
+                                <div class="dropdown d-grid gap-2">
+                                    <a class="btn btn-primary dropdown-toggle btn-sm" href="#" role="button"
+                                        id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-plus-circle"></i> Nuevo
+                                    </a>
+
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href="#" (click)="moveTab('ingresar-tab')">
+                                            Solicitud de pase de salida 
+                                            </a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#">Solicitud  de vacaciones</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-md-10">
+                                <input type="text" class="form-control form-control-sm" placeholder="Buscar">
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="table-responsive scrollbar bg-white  mt-4 ">
+                                    <table class="table table-borderless table-striped fs--1 mb-0 table-sm ">
+                                        <thead class="bg-200 text-900">
+                                            <tr>
+                                                <th class="sort" data-sort="name">No. Tarea </th>
+                                                <th class="sort" data-sort="name">Fecha</th>
+                                                <th class="sort" data-sort="name">Nombre</th>
+                                                <th class="sort" data-sort="email">Descripción</th>
+                                                <th class="sort" data-sort="email">Estado</th>
+                                                <th class="sort" data-sort="age">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="list">
+                                            <tr *ngFor="let d of dashBoardTask">
+                                                <td class="name">{{d.task_id}}</td>
+
+                                                <td>{{d.task_created_on.fecha|date:'short'}}</td>
+                                                <td class="name">{{d.task_name}}</td>
+                                                <td> {{d.task_description}} </td>
+                                                <td> {{d.task_status}} </td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-sm btn-primary m-1"
+                                                        (click)="getProceosPath(d)">
+                                                        <i class="fa fa-eye"></i>
+                                                    </button>
+                                                   <!--  <button class="btn btn-sm btn-secondary m-1">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-danger m-1">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button> -->
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="aprob" role="tabpanel" aria-labelledby="aprob-tab">
+                        <app-form-pase-salida *ngIf="openForm" [dataPSEdit]='dataPSEdit' (btnRegresar)='btnRegresar($event)' (btnSiguiente)='btnSiguiente($event)'></app-form-pase-salida>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
-  
-
-  <div class="row">
-    <div class="col-md-6">
-      
-    </div>
-  </div>
 </div>

@@ -20,7 +20,7 @@ import { PaseSalidaComponent } from './pages/pase-salida/pase-salida.component';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { SolicitudVacacionesComponent } from './pages/solicitud-vacaciones/solicitud-vacaciones.component';
 import { FilterPipe } from './pipes/filter.pipe';
-import {MatTabsModule} from '@angular/material/tabs';
+import { FormPaseSalidaComponent } from './components/form-pase-salida/form-pase-salida.component';
 
 const keycloakSecurityService = new KeycloakSecurityService();
 @NgModule({
@@ -32,7 +32,8 @@ const keycloakSecurityService = new KeycloakSecurityService();
     DemoComponent,
     PaseSalidaComponent,
     SolicitudVacacionesComponent,
-    FilterPipe
+    FilterPipe,
+    FormPaseSalidaComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +50,6 @@ const keycloakSecurityService = new KeycloakSecurityService();
     NgxSpinnerModule,
     HttpClientModule,
     SimpleNotificationsModule.forRoot(),
-    MatTabsModule,
   ],
   providers: [
     { provide: KeycloakSecurityService, useValue: keycloakSecurityService },

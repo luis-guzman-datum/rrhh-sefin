@@ -1,5 +1,9 @@
+import { state } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { DashBoardService } from 'src/app/services/DashBoardService';
+declare var $: any;
+declare var bootstrap: any;
+declare var document: any;
 
 @Component({
   selector: 'app-home',
@@ -8,32 +12,90 @@ import { DashBoardService } from 'src/app/services/DashBoardService';
 })
 export class HomeComponent implements OnInit {
   usuarioInfo: any;
-  rolesUser:any;
-  token:any;
-  stringRoles:any;
-  dashBoardTask: any[]=[];
-  constructor(private apiDashBoard:DashBoardService) {
-    
-    
-   }
+  rolesUser: any;
+  token: any;
+  stringRoles: any;
+  dashBoardTask: any[] = [];
 
-  ngOnInit(): void {   
+  openForm = false;
+  dataPSEdit: any;
+
+  constructor(private apiDashBoard: DashBoardService) {
+  }
+
+  ngOnInit(): void {
     this.rolesUser = JSON.parse(sessionStorage.getItem("roles") || '{}');
     this.token = JSON.parse(sessionStorage.getItem("token") || '{}');
-    this.stringRoles = this.rolesUser.roles.reduce((reducer:any,item:any)=>{
+    this.stringRoles = this.rolesUser.roles.reduce((reducer: any, item: any) => {
       return `${reducer}groups=${item}&`
-    },"");
+    }, "");
     this.taskDashBoard();
   }
-  getInfoUsuario():any{
+
+  moveTab(tab: string) {
+    document.getElementById(tab).click();
+  }
+
+  getInfoUsuario(): any {
     return JSON.parse(sessionStorage.getItem("userInfo") || '{}');
   }
-  taskDashBoard(){
-    if(this.token.token){
-      this.apiDashBoard.getDasboardTask(this.stringRoles,this.token.token).subscribe(respose => {
-        this.dashBoardTask=respose.data.task_summary;
-      });
+
+  taskDashBoard() {
+    if (this.token.token) {
+      this.apiDashBoard.getDasboardTask().subscribe((respose) => {
+        this.dashBoardTask = respose.data.task_summary;
+      },
+        (error) => {
+          this.dashBoardTask = [];
+        });
     }
+  }
+
+
+  getProceosPath(data: any) {
+    this.apiDashBoard.getProceosPath(data).subscribe((response) => {
+      if (response.state == 'success') {
+        this.apiDashBoard.getTaskInputByContainerAndTaskId(data).subscribe((response2) => {
+          this.dataPSEdit = response2.data.solicitud.solicitudes_pase_salida;
+          this.dataPSEdit={...this.dataPSEdit, task_container_id:response.data.nombre_contenedor}
+          this.openForm = true;
+          this.moveTab(response.data.url_path);
+        });
+      }
+    }, (error) => {
+
+    });
+  }
+
+
+
+  abortSolicitudPaseSalida(data: any) {
+
+    this.apiDashBoard.getTaskInputByContainerAndTaskId(data).subscribe((respose) => {
+
+    }, (error) => {
+
+    });
+
+  }
+
+  btnSiguiente(event: any) {
+    this.apiDashBoard.createSolicitudPaseSalida(event).subscribe(
+      (response) => {
+        console.log(response);
+        this.btnRegresar(null);
+      },
+      (error) => {
+
+      }
+    )
+  }
+
+  btnRegresar(event: any) {
+    this.dataPSEdit = null;
+    this.openForm = false;
+    this.taskDashBoard();
+    this.moveTab('pase-salida-tab');
   }
 
 }

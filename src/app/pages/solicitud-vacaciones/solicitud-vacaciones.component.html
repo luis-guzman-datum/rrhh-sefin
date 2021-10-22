@@ -1,7 +1,7 @@
 <app-navbar title="Solicitud de Vacaciones"></app-navbar>
 <div class="container">
-    <mat-tab-group>
-        <mat-tab label="Solicitud de Vacaciones">
+    <div>
+        <div label="Solicitud de Vacaciones">
             <div class="row">
                 <div class="col-md-12">
                     <form [formGroup]="formSolicitudVacaciones" class="row" (ngSubmit)="submit()">
@@ -23,11 +23,11 @@
                     </form>
                 </div>
             </div>
-        </mat-tab>
-        <mat-tab label="Historial"> Historial </mat-tab>
-      </mat-tab-group>
-    
-</div>
+            <div>
+                <div> Historial </div>
+            </div>
 
-<pre>{{formSolicitudVacaciones.value | json}}</pre>
-<simple-notifications [options]="options"></simple-notifications>
+        </div>
+
+        <pre>{{formSolicitudVacaciones.value | json}}</pre>
+        <simple-notifications [options]="options"></simple-notifications>

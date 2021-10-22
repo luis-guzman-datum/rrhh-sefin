@@ -1,0 +1,75 @@
+<div class="row bg-white">
+        <form [formGroup]="formPS" (ngSubmit)='submit()' class="row bg-white">
+            <div class="form-group col-md-6 mt-2">
+                <label for="numero_siarh">Número SIARH</label>
+                <input type="text" name="numero_siarh" formControlName='numero_siarh' class="form-control form-control-sm">
+            </div>
+            <div class="form-group col-md-6 mt-2">
+                <label for="expediente_id">expediente_id</label>
+                <input type="text" name="expediente_id" formControlName='expediente_id' class="form-control form-control-sm">
+            </div>
+            <div class="form-group col-md-6 mt-2">
+                <label for="solicitud_pase_salida_id">solicitud_pase_salida_id</label>
+                <input type="text" name="solicitud_pase_salida_id" formControlName='solicitud_pase_salida_id' class="form-control form-control-sm">
+            </div>
+            <div class="form-group col-md-6 mt-2">
+                <label for="fecha">fecha</label>
+                <input type="date" name="fecha" formControlName='fecha' class="form-control form-control-sm">
+            </div>
+            <div class="form-group col-md-6 mt-2">
+                <label for="solicitud_pase_salida_tipo_id">solicitud_pase_salida_tipo_id</label>
+                <input type="text" name="solicitud_pase_salida_tipo_id" formControlName='solicitud_pase_salida_tipo_id' class="form-control form-control-sm">
+            </div>
+            <div class="form-group col-md-6 mt-2">
+                <label for="asunto">asunto</label>
+                <input type="text" name="asunto" formControlName='asunto' class="form-control form-control-sm">
+            </div>
+            <div class="form-group col-md-6 mt-2">
+                <label for="hora_salida">hora_salida</label>
+                <input type="datetime-local" name="hora_salida" formControlName='hora_salida' class="form-control form-control-sm">
+            </div>
+            <div class="form-group col-md-6 mt-2">
+                <label for="hora_entrada">hora_entrada</label>
+                <input type="datetime-local" name="hora_entrada" formControlName='hora_entrada' class="form-control form-control-sm">
+            </div>
+            <div class="form-group col-md-6 mt-2">
+                <label for="hora_salida_reloj">hora_salida_reloj</label>
+                <input type="datetime-local" name="hora_salida_reloj" formControlName='hora_salida_reloj' class="form-control form-control-sm">
+            </div>
+
+            <div class="form-group col-md-6 mt-2">
+                <label for="hora_entrada_reloj">hora_entrada_reloj</label>
+                <input type="datetime-local" name="hora_entrada_reloj" formControlName='hora_entrada_reloj' class="form-control form-control-sm">
+            </div>
+
+            <div class="form-group col-md-6 mt-2">
+                <label for="solicitud_estado_id">solicitud_estado_id</label>
+                <input type="text" name="solicitud_estado_id" formControlName='solicitud_estado_id' class="form-control form-control-sm">
+            </div>
+
+            <div class="form-group col-md-6 mt-2">
+                <label for="observaciones">observaciones</label>
+                <input type="text" name="observaciones" formControlName='observaciones' class="form-control form-control-sm">
+            </div>
+
+            <div class="form-group col-md-6 mt-2">
+                <label for="usuario_sso">usuario_sso</label>
+                <input type="text" name="usuario_sso" formControlName='usuario_sso' class="form-control form-control-sm">
+            </div>
+
+            <div class="form-group col-md-6 mt-2">
+                <label for="nombre_usuario_sso">nombre_usuario_sso</label>
+                <input type="text" name="nombre_usuario_sso" formControlName='nombre_usuario_sso' class="form-control form-control-sm">
+            </div>
+
+            <div class="form-group mt-4 mb-5">
+                <button type="submit" class="btn btn-sm btn-primary">Enviar</button>
+                <button type="button" (click)='regresar()' class="btn btn-sm btn-secondary">Cancelar</button>
+            </div>
+
+            <div class="col-md-12">
+                <pre>{{formPS.value|json}}</pre>
+            </div>
+        </form>
+    
+</div>
