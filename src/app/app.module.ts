@@ -1,6 +1,7 @@
 import { DoBootstrap, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +22,10 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { SolicitudVacacionesComponent } from './pages/solicitud-vacaciones/solicitud-vacaciones.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { FormPaseSalidaComponent } from './components/form-pase-salida/form-pase-salida.component';
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 const keycloakSecurityService = new KeycloakSecurityService();
 @NgModule({
@@ -50,6 +55,7 @@ const keycloakSecurityService = new KeycloakSecurityService();
     NgxSpinnerModule,
     HttpClientModule,
     SimpleNotificationsModule.forRoot(),
+    NgxMaskModule.forRoot(maskConfig),
   ],
   providers: [
     { provide: KeycloakSecurityService, useValue: keycloakSecurityService },

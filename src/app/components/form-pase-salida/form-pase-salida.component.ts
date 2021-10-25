@@ -25,6 +25,7 @@ export class FormPaseSalidaComponent implements OnInit {
   set dataPSEdit(dataPSEdit: any) {
     this._dataPSEdit = dataPSEdit;
     this.formPS.get('task_container_id')?.setValue(dataPSEdit.task_container_id);
+    this.formPS.get('task_id')?.setValue(dataPSEdit.task_id);
     this.formPS.get('numero_siarh')?.setValue(dataPSEdit.numero_siarh);
     this.formPS.get('expediente_id')?.setValue(dataPSEdit.expediente_id);
     this.formPS.get('solicitud_pase_salida_id')?.setValue(dataPSEdit.solicitud_pase_salida_id);
@@ -43,6 +44,7 @@ export class FormPaseSalidaComponent implements OnInit {
 
 
   formPS: FormGroup = new FormGroup({
+    task_id: new FormControl(''),
     task_container_id: new FormControl(''),
     numero_siarh: new FormControl(''),
     expediente_id: new FormControl(''),
@@ -61,18 +63,35 @@ export class FormPaseSalidaComponent implements OnInit {
   });
 
 
+ 
   constructor() { }
 
   ngOnInit(): void {
   }
 
   submit() {
+    let userSesion: any = JSON.parse(sessionStorage.getItem('userInfo')|| '{}');
+    let data = {
+      ...this.formPS.value,
+      usuario_sso: userSesion.usuario_sso,
+      numero_siarh: userSesion.numero_siarh,
+      nombre_usuario_sso: userSesion.primer_nombre + ' ' + userSesion.primer_apellido,
+      hora_entrada_reloj:'',
+      hora_salida_reloj:'',
+      hora_salida: this.formPS.value.fecha + ' '+this.formPS.value.hora_salida,
+      hora_entrada: this.formPS.value.fecha + ' '+this.formPS.value.hora_entrada,
+
+    }
+    console.clear();
+    console.log(data);
     if (this.formPS.valid) {
-      this.btnSiguiente.emit(this.formPS.value);
+      this.btnSiguiente.emit(data);
+      this.formPS.reset();
     }
   }
 
-  regresar(){
+  regresar() {
+    this.formPS.reset();
     this.btnRegresar.emit(this.formPS.value);
   }
 

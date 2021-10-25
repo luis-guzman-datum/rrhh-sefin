@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
   }
 
   moveTab(tab: string) {
+    this.openForm=true;
     document.getElementById(tab).click();
   }
 
@@ -57,7 +58,13 @@ export class HomeComponent implements OnInit {
       if (response.state == 'success') {
         this.apiDashBoard.getTaskInputByContainerAndTaskId(data).subscribe((response2) => {
           this.dataPSEdit = response2.data.solicitud.solicitudes_pase_salida;
-          this.dataPSEdit={...this.dataPSEdit, task_container_id:response.data.nombre_contenedor}
+          this.dataPSEdit = {
+            ...this.dataPSEdit,
+            task_container_id: response.data.nombre_contenedor,
+            task_id: data.task_id,
+            hora_salida: this.dataPSEdit.hora_salida.split(' ')[1],
+            hora_entrada: this.dataPSEdit.hora_entrada.split(' ')[1],
+          }
           this.openForm = true;
           this.moveTab(response.data.url_path);
         });
@@ -80,15 +87,32 @@ export class HomeComponent implements OnInit {
   }
 
   btnSiguiente(event: any) {
-    this.apiDashBoard.createSolicitudPaseSalida(event).subscribe(
-      (response) => {
-        console.log(response);
-        this.btnRegresar(null);
-      },
-      (error) => {
 
-      }
-    )
+    if (event.task_id != '') {
+      this.apiDashBoard.updateSolicitudPaseSalida(event).subscribe(
+        (response) => {
+          console.log(response);
+          this.btnRegresar(null);
+
+        },
+        (error) => {
+
+        }
+      )
+    }
+    else {
+      this.apiDashBoard.createSolicitudPaseSalida(event).subscribe(
+        (response) => {
+          console.log(response);
+          this.btnRegresar(null);
+        },
+        (error) => {
+
+        }
+      )
+    }
+
+
   }
 
   btnRegresar(event: any) {

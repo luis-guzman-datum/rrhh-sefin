@@ -77,15 +77,11 @@
                                                         (click)="getProceosPath(d)">
                                                         <i class="fa fa-eye"></i>
                                                     </button>
-                                                   <!--  <button class="btn btn-sm btn-secondary m-1">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-sm btn-danger m-1">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button> -->
                                                 </td>
                                             </tr>
-
+                                            <tr *ngIf="dashBoardTask.length==0">
+                                                <td colspan="6" class="text-center">No hay registros</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -98,6 +94,7 @@
                     <div class="tab-pane fade" id="aprob" role="tabpanel" aria-labelledby="aprob-tab">
                         <app-form-pase-salida *ngIf="openForm" [dataPSEdit]='dataPSEdit' (btnRegresar)='btnRegresar($event)' (btnSiguiente)='btnSiguiente($event)'></app-form-pase-salida>
                     </div>
+                    
                 </div>
             </div>
 

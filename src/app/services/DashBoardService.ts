@@ -87,8 +87,10 @@ export class DashBoardService {
   updateSolicitudPaseSalida(data: any): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
     let options = { headers: headers };
-    let url = `${this.urlServer}/microserviciosRRHH/updateSolicitudPaseSalida/${data.task_id}/${data.task_container_id}`;
-    return this.http.post<any>(url, data, options).pipe(
+    let url = `${this.urlServer}/paseSalidaKSRRHH/updateSolicitudPaseSalida/${data.task_id}/${data.task_container_id}`;
+    delete data.task_id;
+    delete data.task_container_id;
+    return this.http.put<any>(url, data, options).pipe(
       retry(1),
       catchError(this.handleError)
     );
