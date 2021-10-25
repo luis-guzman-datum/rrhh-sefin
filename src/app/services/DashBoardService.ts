@@ -61,6 +61,26 @@ export class DashBoardService {
     );
   }
 
+  getProceosPathNuevo(data: any, tipoDeSolicitud:string): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
+    let options = { headers: headers };
+    let url = `${this.urlServer}/microserviciosRRHH/getContainer/${data.option}/${tipoDeSolicitud}`; //PaseSalida
+    return this.http.get<any>(url, options).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  getTiposPaseSalida(): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
+    let options = { headers: headers };
+    let url = `${this.urlServer}/microserviciosRRHH/getTiposPaseSalida`;
+    return this.http.get<any>(url, options).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
 
   abortSolicitudPaseSalida(data: any): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
@@ -78,6 +98,7 @@ export class DashBoardService {
     let options = { headers: headers };
     let url = `${this.urlServer}/paseSalidaKSRRHH/createSolicitudPaseSalida/${data.task_container_id}`;
     delete data.task_container_id;
+    delete data.option;
     return this.http.post<any>(url, data, options).pipe(
       retry(1),
       catchError(this.handleError)
@@ -90,6 +111,7 @@ export class DashBoardService {
     let url = `${this.urlServer}/paseSalidaKSRRHH/updateSolicitudPaseSalida/${data.task_id}/${data.task_container_id}`;
     delete data.task_id;
     delete data.task_container_id;
+    delete data.option;
     return this.http.put<any>(url, data, options).pipe(
       retry(1),
       catchError(this.handleError)
