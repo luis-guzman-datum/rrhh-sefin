@@ -5,6 +5,7 @@ import { DemoComponent } from './pages/demo/demo.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PaseSalidaComponent } from './pages/pase-salida/pase-salida.component';
 import { SolicitudVacacionesComponent } from './pages/solicitud-vacaciones/solicitud-vacaciones.component';
+import { VacacionesComponent } from './pages/vacaciones/vacaciones.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,8 +22,8 @@ const routes: Routes = [
     component: PaseSalidaComponent
   },
   {
-    path:'solicitud-vacaciones',
-    component: SolicitudVacacionesComponent
+    path:'vacaciones',
+    component: VacacionesComponent
   },
   
   {

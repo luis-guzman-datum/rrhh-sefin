@@ -45,7 +45,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#"
+                                            <a class="dropdown-item"
                                                 (click)="nuevaSolicitudPaseDeVacaciones()">Solicitud de vacaciones</a>
                                         </li>
                                     </ul>
@@ -61,8 +61,8 @@
                                     <table class="table table-borderless table-striped fs--1 mb-0 table-sm ">
                                         <thead class="bg-200 text-900">
                                             <tr>
-                                                <th class="sort" data-sort="name">No. Tarea </th>
-                                                <th class="sort" data-sort="name">Fecha</th>
+                                                <th class="sort" data-sort="name">Fecha solicitud</th>
+                                                <th class="sort" data-sort="name">Desde - Hasta</th>
                                                 <th class="sort" data-sort="name">Nombre</th>
                                                 <th class="sort" data-sort="email">Descripción</th>
                                                 <th class="sort" data-sort="email">Estado</th>
@@ -70,10 +70,13 @@
                                             </tr>
                                         </thead>
                                         <tbody class="list">
-                                            <tr *ngFor="let d of dashBoardTask">
-                                                <td class="name">{{d.task_id}}</td>
+                                            <tr *ngFor="let d of getSolicitudVacacionesGerhbySiarhList">
+                                                <td class="name">{{d.fecha_solicitud}}</td>
 
-                                                <td>{{d.task_created_on.fecha|date:'short'}}</td>
+                                                <td>
+                                                    {{(d.fecha_inicio|date:'short') +' - '
+                                                    +(d.fecha_fin|date:'short') }}
+                                                </td>
                                                 <td class="name">{{d.task_name}}</td>
                                                 <td> {{d.task_description}} </td>
                                                 <td> {{d.task_status}} </td>
@@ -103,8 +106,9 @@
                     </div>
                     <div class="tab-pane fade" id="vacaciones-form" role="tabpanel" aria-labelledby="vacaciones-form">
                         <div class="container-fluid bg-white" *ngIf="openFormVacas">
-                            <app-vacaciones-exist [getPeriodosVacacionesList]="getPeriodosVacacionesList" ></app-vacaciones-exist>
-                            <app-form-vacaciones [dataPSEdit]='dataPSEdit'  (btnSiguiente)='btnSiguiente($event)'  (btnRegresar)='btnRegresar($event)'></app-form-vacaciones>
+                            <app-vacaciones-exist></app-vacaciones-exist>
+                            <app-vacaciones-solicitadas></app-vacaciones-solicitadas>
+                            <app-form-vacaciones></app-form-vacaciones>
                             <app-form-vacaciones-docs></app-form-vacaciones-docs>
                             <app-vacaciones-docs-list></app-vacaciones-docs-list>
                         </div>

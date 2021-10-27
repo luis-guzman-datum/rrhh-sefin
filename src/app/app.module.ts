@@ -22,6 +22,12 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { SolicitudVacacionesComponent } from './pages/solicitud-vacaciones/solicitud-vacaciones.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { FormPaseSalidaComponent } from './components/form-pase-salida/form-pase-salida.component';
+import { FormVacacionesComponent } from './components/form-vacaciones/form-vacaciones.component';
+import { FormVacacionesDocsComponent } from './components/form-vacaciones-docs/form-vacaciones-docs.component';
+import { VacacionesExistComponent } from './components/vacaciones-exist/vacaciones-exist.component';
+import { VacacionesSolicitadasComponent } from './components/vacaciones-solicitadas/vacaciones-solicitadas.component';
+import { VacacionesDocsListComponent } from './components/vacaciones-docs-list/vacaciones-docs-list.component';
+import { VacacionesComponent } from './pages/vacaciones/vacaciones.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -38,7 +44,13 @@ const keycloakSecurityService = new KeycloakSecurityService();
     PaseSalidaComponent,
     SolicitudVacacionesComponent,
     FilterPipe,
-    FormPaseSalidaComponent
+    FormPaseSalidaComponent,
+    FormVacacionesComponent,
+    FormVacacionesDocsComponent,
+    VacacionesExistComponent,
+    VacacionesSolicitadasComponent,
+    VacacionesDocsListComponent,
+    VacacionesComponent,
   ],
   imports: [
     BrowserModule,

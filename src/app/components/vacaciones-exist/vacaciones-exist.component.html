@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive scrollbar bg-white  mt-4 ">
+            <p class="lead">
+                <strong>Vacaciones disponibles</strong>
+            </p>
+            <table class="table table-borderless table-striped fs--1 mb-0 table-sm">
+                <thead class="bg-200 text-900">
+                    <tr>
+                        <th>Periodo</th>
+                        <th>Dias gozados</th>
+                        <th>Dias de vacación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let d of getPeriodosVacacionesList">
+                        <td>{{(d.fecha_inicio_periodo | slice:0:10 ) +" - "+(d.fecha_fin_periodo| slice:0:10)}}</td>
+                        <td>{{d.dias_vacaciones_gozados}}</td>
+                        <td>{{d.dias_vacaciones}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

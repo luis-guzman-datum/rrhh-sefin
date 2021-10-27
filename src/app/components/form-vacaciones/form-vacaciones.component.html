@@ -1,0 +1,95 @@
+<div class="row bg-white mt-5">
+    <form [formGroup]="formPS" (ngSubmit)='submit()'  class="row bg-white">
+        <div class="form-group col-md-6 mt-2" style="display: none;">
+            <label for="numero_siarh">Número SIARH</label>
+            <input type="text" name="numero_siarh" formControlName='numero_siarh' class="form-control form-control-sm">
+        </div>
+        <div class="form-group col-md-6 mt-2">
+            <label for="expediente_id">expediente_id</label>
+            <input type="text" name="expediente_id" formControlName='expediente_id'
+                class="form-control form-control-sm">
+        </div>
+        
+        <div class="form-group col-md-6 mt-2">
+            <label for="fecha_solicitud">fecha</label>
+            <input type="text" mask="00/00/0000" name="fecha_solicitud" formControlName='fecha_solicitud'
+                class="form-control form-control-sm" [showMaskTyped]="true" [dropSpecialCharacters]="false">
+        </div>
+        <div class="form-group col-md-6 mt-2">
+            <label for="fecha_inicio">fecha_inicio</label>
+            <input type="text" mask="00/00/0000" name="fecha_inicio" formControlName='fecha_inicio'
+                class="form-control form-control-sm" [showMaskTyped]="true" [dropSpecialCharacters]="false">
+        </div>
+        <div class="form-group col-md-6 mt-2">
+            <label for="fecha_fin">fecha_fin</label>
+            <input type="text" mask="00/00/0000" name="fecha_fin" formControlName='fecha_fin'
+                class="form-control form-control-sm" [showMaskTyped]="true" [dropSpecialCharacters]="false">
+        </div>
+
+        <div class="form-group col-md-6 mt-2">
+            <label for="dias">dias</label>
+            <input type="text"  name="dias" formControlName='dias'
+                class="form-control form-control-sm" >
+        </div>
+        <div class="form-group col-md-6 mt-2">
+            <label for="solicitud_estado_id">solicitud_estado_id</label>
+            <input type="text" name="solicitud_estado_id" formControlName='solicitud_estado_id'
+                class="form-control form-control-sm">
+        </div>
+        
+        <div class="form-group col-md-12 mt-2">
+            <label for="vigente">vigente</label>
+            <input type="text" name="vigente" formControlName='vigente' class="form-control form-control-sm">
+        </div>
+        <div class="form-group col-md-12 mt-2">
+            <label for="observaciones">observaciones</label>
+            <textarea name="observaciones" formControlName='observaciones'
+                class="form-control form-control-sm"></textarea>
+        </div>
+
+
+
+        <div class="form-group col-md-6 mt-2" style="display: none;">
+            <label for="usuario_sso">usuario_sso</label>
+            <input type="text" name="usuario_sso" formControlName='usuario_sso' class="form-control form-control-sm">
+        </div>
+
+        <div class="form-group col-md-6 mt-2" style="display: none;">
+            <label for="nombre_usuario_sso">nombre_usuario_sso</label>
+            <input type="text" name="nombre_usuario_sso" formControlName='nombre_usuario_sso'
+                class="form-control form-control-sm">
+        </div>
+
+        <div class="form-group mt-4 mb-5">
+            <div class="row justify-content-end">
+                <div class="col-md-2 d-grid gap-2">
+                    <button type="submit" class="btn btn-sm btn-primary"> {{(this.formPS.value.task_id==null||
+                        this.formPS.value.task_id=='')?'Crear': (this.formPS.value.option=='ingresar-tab' &&
+                        (this.formPS.value.task_id!=null&&
+                        this.formPS.value.task_id!=''))?'Enviar': 'Aprobar'}}</button>
+                </div>
+
+               <div class="col-md-2 d-grid gap-2" *ngIf="(this.formPS.value.option!='ingresar-tab') && (this.formPS.value.option!='vac-add-sol')">
+                    <button type="button" (click)='rechazar()' class="btn btn-sm btn-warning">Rechazar</button>
+                </div>
+                <div class="col-md-2 d-grid gap-2" *ngIf="(
+                    this.formPS.value.option=='ingresar-tab')
+                    &&
+                    (this.formPS.value.task_id!=null
+                    &&
+                    this.formPS.value.task_id!='')
+                    ">
+                    <button type="button" (click)='abortar()' class="btn btn-sm btn-danger">Abortar</button>
+                </div>
+                <div class="col-md-2 d-grid gap-2">
+                    <button type="button" (click)='regresar()' class="btn btn-sm btn-secondary">Regresar</button>
+                </div> 
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <pre>{{formPS.value|json}}</pre>
+        </div>
+    </form>
+
+</div>

@@ -64,7 +64,7 @@ export class DashBoardService {
   getProceosPathNuevo(data: any, tipoDeSolicitud:string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
     let options = { headers: headers };
-    let url = `${this.urlServer}/microserviciosRRHH/getContainer/${data.option}/${tipoDeSolicitud}`; //PaseSalida
+    let url = `${this.urlServer}/microserviciosRRHH/getContainer/${data.option}/${tipoDeSolicitud}`; //PaseSalida - vacaciones-form-tab
     return this.http.get<any>(url, options).pipe(
       retry(1),
       catchError(this.handleError)
@@ -117,6 +117,37 @@ export class DashBoardService {
       catchError(this.handleError)
     );
   }
+
+
+  //all vacaciones
+
+
+  getSolicitudVacacionesGerhbySiarh(data: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
+    let options = { headers: headers };
+    let url = `${this.urlServer}/microserviciosRRHH/getSolicitudVacacionesGerhbySiarh/${data.numero_siarh}`;
+    delete data.task_id;
+    delete data.task_container_id;
+    delete data.option;
+    return this.http.get<any>(url, options).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+
+  getPeriodosVacaciones(data: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
+    let options = { headers: headers };
+    let url = `${this.urlServer}/microserviciosRRHH/getPeriodosVacaciones/${data.numero_siarh}`;
+    return this.http.get<any>(url, options).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  
+
 
   handleError(error: any) {
     let errorMessage = '';

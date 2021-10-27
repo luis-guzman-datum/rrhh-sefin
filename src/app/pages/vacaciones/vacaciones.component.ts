@@ -1,16 +1,14 @@
-import { state } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { DashBoardService } from 'src/app/services/DashBoardService';
-declare var $: any;
-declare var bootstrap: any;
 declare var document: any;
-
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-vacaciones',
+  templateUrl: './vacaciones.component.html',
+  styleUrls: ['./vacaciones.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class VacacionesComponent implements OnInit {
+
+
   usuarioInfo: any;
   rolesUser: any;
   token: any;
@@ -22,7 +20,6 @@ export class HomeComponent implements OnInit {
   dataPSEdit: any;
 
   getSolicitudVacacionesGerhbySiarhList: any[] = [];
-  getPeriodosVacacionesList: any[] = [];
 
   constructor(private apiDashBoard: DashBoardService) {
   }
@@ -47,12 +44,24 @@ export class HomeComponent implements OnInit {
 
   taskDashBoard() {
     if (this.token.token) {
-      this.apiDashBoard.getDasboardTask().subscribe((respose) => {
-        this.dashBoardTask = respose.data.task_summary;
-      },
+      let userSesion: any = JSON.parse(sessionStorage.getItem('userInfo') || '{}');
+      this.dataPSEdit = {
+        ...this.dataPSEdit,
+        task_id: '',
+        expediente_id: userSesion.expediente_id,
+        solicitud_estado_id: 1,
+        usuario_sso: userSesion.usuario_sso,
+        numero_siarh: userSesion.numero_siarh,
+        nombre_usuario_sso: userSesion.primer_nombre + ' ' + userSesion.primer_apellido,
+      }
+      this.apiDashBoard.getSolicitudVacacionesGerhbySiarh(this.dataPSEdit).subscribe(
+        (response2) => {
+          this.getSolicitudVacacionesGerhbySiarhList=response2.data;
+        },
         (error) => {
-          this.dashBoardTask = [];
-        });
+          this.getSolicitudVacacionesGerhbySiarhList=[];
+        }
+      );
     }
   }
 
@@ -65,8 +74,6 @@ export class HomeComponent implements OnInit {
         let userSesion: any = JSON.parse(sessionStorage.getItem('userInfo') || '{}');
         this.dataPSEdit = {
           ...this.dataPSEdit,
-          key_proceses_id: response.data.key_proceses_id,
-          key_task_name_inicio: response.data.key_task_name_inicio,
           task_container_id: response.data.nombre_contenedor,
           task_id: '',
           solicitud_pase_salida_id: 0,
@@ -94,49 +101,25 @@ export class HomeComponent implements OnInit {
     this.apiDashBoard.getProceosPathNuevo(this.dataPSEdit, 'SolicitudVacacion').subscribe((response) => {
       if (response.state == 'success') {
         let userSesion: any = JSON.parse(sessionStorage.getItem('userInfo') || '{}');
-
-        //temporal borrar
-        this.dataPSEdit = {
-          ...{
-            "numero_siarh": 2,
-            "expediente_id": 1,
-            "fecha_solicitud": "26/10/2021",
-            "fecha_inicio": "27/10/2021",
-            "fecha_fin": "28/10/2021",
-            "dias": "2",
-            "solicitud_estado_id": 4,
-            "observaciones": "cual",
-            "usuario_sso": "empleado1",
-            "vigente": "0",
-            "nombre_usuario_sso": "Pedro Gomez"
-          }
-        }
-        //temporal borrar
-
-
         this.dataPSEdit = {
           ...this.dataPSEdit,
+          task_container_id: response.data.nombre_contenedor,
           task_id: '',
           expediente_id: userSesion.expediente_id,
           solicitud_estado_id: 1,
-          solicitud_vacacion_id: 0,
           usuario_sso: userSesion.usuario_sso,
           numero_siarh: userSesion.numero_siarh,
           nombre_usuario_sso: userSesion.primer_nombre + ' ' + userSesion.primer_apellido,
-          option: response.data.url_path,
-          task_container_id: response.data.nombre_contenedor,
+          option: response.data.url_path
         }
 
-
-        console.log(this.dataPSEdit);
-
-        this.apiDashBoard.getPeriodosVacaciones(this.dataPSEdit).subscribe(
+        //getSolicitudVacacionesGerhbySiarhList
+        this.apiDashBoard.getSolicitudVacacionesGerhbySiarh(this.dataPSEdit).subscribe(
           (response2) => {
-            this.getPeriodosVacacionesList = response2.data;
-            console.warn('response.data', response2.data);
+
           },
           (error) => {
-            this.getPeriodosVacacionesList = [];
+
           }
         );
 
@@ -178,8 +161,6 @@ export class HomeComponent implements OnInit {
 
     });
   }
-
-
 
   btnAbortar(event: any) {
     this.apiDashBoard.getTaskInputByContainerAndTaskId(event).subscribe(
