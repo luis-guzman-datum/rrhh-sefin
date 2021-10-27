@@ -27,6 +27,8 @@ export class FormPaseSalidaComponent implements OnInit {
   set dataPSEdit(dataPSEdit: any) {
     this._dataPSEdit = dataPSEdit;
     this.formPS.get('option')?.setValue(dataPSEdit.option);
+    this.formPS.get('key_proceses_id')?.setValue(dataPSEdit.key_proceses_id);
+    this.formPS.get('key_task_name_inicio')?.setValue(dataPSEdit.key_task_name_inicio);
     this.formPS.get('task_container_id')?.setValue(dataPSEdit.task_container_id);
     this.formPS.get('task_id')?.setValue(dataPSEdit.task_id);
     this.formPS.get('numero_siarh')?.setValue(dataPSEdit.numero_siarh);
@@ -48,6 +50,8 @@ export class FormPaseSalidaComponent implements OnInit {
 
   formPS: FormGroup = new FormGroup({
     option: new FormControl(''),
+    key_proceses_id: new FormControl(''),
+    key_task_name_inicio: new FormControl(''),
     task_id: new FormControl(''),
     task_container_id: new FormControl(''),
     numero_siarh: new FormControl(''),
@@ -153,7 +157,7 @@ export class FormPaseSalidaComponent implements OnInit {
       this.formPS.reset();
     }
   }
-  
+
 
   regresar() {
     this.formPS.reset();

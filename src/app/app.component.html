@@ -9,28 +9,28 @@
                     </div>
                 </div>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li class="nav-item">
+                   <!--  <li class="nav-item">
                         <a href="#" class="nav-link align-middle px-0">
                             <i class="fa fa-home icon-left"></i>
                             <span class="ms-1 d-none d-sm-inline">Home</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fa fa-dashboard icon-left"></i>
+                            <i class="fa fa-home icon-left"></i>
                             <span class="ms-1 d-none d-sm-inline">Recursos Humanos</span>
                             <i class="fa fa-angle-right icon-right"></i>
                         </a>
-                        <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                        <!-- <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                             <li class="w-100">
                                 <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Pase de salida</span> </a>
                             </li>
                             <li>
                                 <a [routerLink]="['/vacaciones']" class="nav-link px-0"> <span class="d-none d-sm-inline">Solicitud de vacaciones</span> </a>
                             </li>
-                        </ul>
+                        </ul> -->
                     </li>
-                    <li>
+                  <!--   <li>
                         <a href="#" class="nav-link px-0 align-middle">
                             <i class="fa fa-list icon-left"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
                     </li>
@@ -73,7 +73,7 @@
                     <li>
                         <a href="#" class="nav-link px-0 align-middle">
                             <i class="fa fa-users"></i> <span class="ms-1 d-none d-sm-inline">Customers</span> </a>
-                    </li>
+                    </li> -->
                 </ul>
                 <hr>
                 <div class="dropdown pb-4">
@@ -82,12 +82,12 @@
                         <span class="d-none d-sm-inline mx-1">{{getInfoUsuario().primer_nombre}} {{getInfoUsuario().primer_apellido}}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light text-small shadow">
-                        <li><a class="dropdown-item" href="#">New project...</a></li>
+                        <!-- <li><a class="dropdown-item" href="#">New project...</a></li>
                         <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" href="#">aprob</a></li>
                         <li>
                             <hr class="dropdown-divider">
-                        </li>
+                        </li> -->
                         <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesión</a></li>
                     </ul>
                 </div>

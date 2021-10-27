@@ -77,12 +77,15 @@ export class HomeComponent implements OnInit {
           nombre_usuario_sso: userSesion.primer_nombre + ' ' + userSesion.primer_apellido,
           option: response.data.url_path
         }
+        console.log(this.dataPSEdit);
         this.openForm = true;
         this.moveTab('ingresar-tab');
       }
     }, (error) => {
 
     });
+
+
   }
 
   nuevaSolicitudPaseDeVacaciones() {
@@ -96,7 +99,7 @@ export class HomeComponent implements OnInit {
         let userSesion: any = JSON.parse(sessionStorage.getItem('userInfo') || '{}');
 
         //temporal borrar
-        this.dataPSEdit = {
+       /* this.dataPSEdit = {
           ...{
             "numero_siarh": 2,
             "expediente_id": 1,
@@ -110,9 +113,8 @@ export class HomeComponent implements OnInit {
             "vigente": "0",
             "nombre_usuario_sso": "Pedro Gomez"
           }
-        }
+        }*/
         //temporal borrar
-
 
         this.dataPSEdit = {
           ...this.dataPSEdit,
@@ -125,7 +127,16 @@ export class HomeComponent implements OnInit {
           nombre_usuario_sso: userSesion.primer_nombre + ' ' + userSesion.primer_apellido,
           option: response.data.url_path,
           task_container_id: response.data.nombre_contenedor,
+          key_proceses_id: response.data.key_proceses_id,
+          key_task_name_inicio: response.data.key_task_name_inicio,
         }
+
+        this.dataPSEdit = {
+          ...this.dataPSEdit,
+          ...JSON.parse(response.data.json_pam).solicitud[response.data.kie_obj],
+          kie_obj:response.data.kie_obj
+        }
+        
 
 
         console.log(this.dataPSEdit);
@@ -147,6 +158,35 @@ export class HomeComponent implements OnInit {
     }, (error) => {
 
     });
+
+    /* let reponse:any = {
+     "solicitudVacacion": {
+       "com.myspace.prueba321.SolicitudVacacionGerh": {
+         "numero_siarh": 2,
+         "expediente_id": 1,
+         "fecha_solicitud": "27/10/2021 10:00",
+         "fecha_inicio": "27/10/2021 10:00",
+         "fecha_fin": "27/10/2021 10:00",
+         "dias": 5,
+         "solicitud_estado_id": 1,
+         "observaciones": "cual",
+         "usuario_sso": "empleado1",
+         "vigente": "0",
+         "nombre_usuario_sso": "Pedro Gomez",
+         "solicitud_vacacion_id": 0
+       }
+     }
+   }
+
+   this.dataPSEdit = {
+     ...this.dataPSEdit,
+     ...reponse.solicitudVacacion["com.myspace.prueba321.SolicitudVacacionGerh"]
+   }
+
+   console.log(this.dataPSEdit);
+   this.openFormVacas = true;
+   this.moveTab('vacaciones-form-tab');
+   */
 
   }
 

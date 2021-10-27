@@ -61,7 +61,7 @@ export class DashBoardService {
     );
   }
 
-  getProceosPathNuevo(data: any, tipoDeSolicitud:string): Observable<any> {
+  getProceosPathNuevo(data: any, tipoDeSolicitud: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
     let options = { headers: headers };
     let url = `${this.urlServer}/microserviciosRRHH/getContainer/${data.option}/${tipoDeSolicitud}`; //PaseSalida - vacaciones-form-tab
@@ -96,13 +96,30 @@ export class DashBoardService {
   createSolicitudPaseSalida(data: any): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
     let options = { headers: headers };
-    let url = `${this.urlServer}/paseSalidaKSRRHH/createSolicitudPaseSalida/${data.task_container_id}`;
+    let url = `${this.urlServer}/paseSalidaKSRRHH/createSolicitudVacacion/${data.task_container_id}/${data.key_proceses_id}/${data.key_task_name_inicio}`;
     delete data.task_container_id;
     delete data.option;
-    return this.http.post<any>(url, data, options).pipe(
+    delete data.key_proceses_id;
+    delete data.key_task_name_inicio;
+
+    let dt = {
+      solicitud: {
+        [data.kie_obj]: {
+          ...data
+        }
+      }
+    }
+
+    delete dt.solicitud[data.kie_obj].kie_obj;
+
+    console.log(dt);
+
+  
+
+     return this.http.post<any>(url, dt, options).pipe(
       retry(1),
       catchError(this.handleError)
-    );
+    ); 
   }
 
   updateSolicitudPaseSalida(data: any): Observable<any> {
@@ -146,7 +163,7 @@ export class DashBoardService {
     );
   }
 
-  
+
 
 
   handleError(error: any) {

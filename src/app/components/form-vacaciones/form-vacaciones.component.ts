@@ -27,6 +27,10 @@ export class FormVacacionesComponent implements OnInit {
   get dataPSEdit(): any { return this._dataPSEdit; }
   set dataPSEdit(dataPSEdit: any) {
     this._dataPSEdit = dataPSEdit;
+    //kie_obj
+    this.formPS.get('key_proceses_id')?.setValue(dataPSEdit.key_proceses_id);
+    this.formPS.get('key_task_name_inicio')?.setValue(dataPSEdit.key_task_name_inicio);
+    this.formPS.get('kie_obj')?.setValue(dataPSEdit.kie_obj);
     this.formPS.get('option')?.setValue(dataPSEdit.option);
     this.formPS.get('task_container_id')?.setValue(dataPSEdit.task_container_id);
     this.formPS.get('task_id')?.setValue(dataPSEdit.task_id);
@@ -48,6 +52,9 @@ export class FormVacacionesComponent implements OnInit {
 
 
   formPS: FormGroup = new FormGroup({
+    key_proceses_id: new FormControl(''),
+    key_task_name_inicio: new FormControl(''),
+    kie_obj: new FormControl(''),
     option: new FormControl(''),
     task_id: new FormControl(''),
     task_container_id: new FormControl(''),
@@ -78,7 +85,6 @@ export class FormVacacionesComponent implements OnInit {
       numero_siarh: userSesion.numero_siarh,
       nombre_usuario_sso: userSesion.primer_nombre + ' ' + userSesion.primer_apellido,
       solicitud_estado_id:4
-
     }
     console.clear();
     console.log(data);
