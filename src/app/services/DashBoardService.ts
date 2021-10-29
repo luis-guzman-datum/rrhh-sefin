@@ -51,6 +51,23 @@ export class DashBoardService {
     );
   }
 
+  //http://api-sefin-rrhh-pasesalida-desa-api-rrhh-pool.apps.galel.sefin.gob.hn/api/pasesSalida
+
+  pasesSalida(data: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
+    let options = { headers: headers };
+    let url = `${this.urlServer}/pasesSalida`;
+    delete data.task_container_id;
+    delete data.option;
+    delete data.key_proceses_id;
+    delete data.key_task_name_inicio;
+    delete data.kie_obj;
+    return this.http.put<any>(url, data, options).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
   getProceosPath(data: any): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
     let options = { headers: headers };
@@ -96,7 +113,7 @@ export class DashBoardService {
   createSolicitudPaseSalida(data: any): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
     let options = { headers: headers };
-    let url = `${this.urlServer}/paseSalidaKSRRHH/createSolicitudVacacion/${data.task_container_id}/${data.key_proceses_id}/${data.key_task_name_inicio}`;
+    let url = `${this.urlServer}/paseSalidaKSRRHH/crearTareaInicial/${data.task_container_id}/${data.key_proceses_id}/${data.key_task_name_inicio}`;
     delete data.task_container_id;
     delete data.option;
     delete data.key_proceses_id;
@@ -114,22 +131,70 @@ export class DashBoardService {
 
     console.log(dt);
 
-  
-
-     return this.http.post<any>(url, dt, options).pipe(
+    return this.http.post<any>(url, dt, options).pipe(
       retry(1),
       catchError(this.handleError)
-    ); 
+    );
+  }
+
+  // http://api-sefin-rrhh-gateway-desa-api-rrhh-pool.apps.galel.sefin.gob.hn/api/microserviciosRRHH/eliminarDocumetosSolicitudVacaciones
+
+  eliminarDocumetosSolicitudVacaciones(data: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
+    let options = { headers: headers };
+    let url = `${this.urlServer}/microserviciosRRHH/eliminarDocumetosSolicitudVacaciones`;
+    console.log(data);
+    return this.http.post<any>(url, data, options).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  gestionarDocumetosSolicitudVacaciones(data: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
+    let options = { headers: headers };
+    let url = `${this.urlServer}/microserviciosRRHH/gestionarDocumetosSolicitudVacaciones`;
+    console.log(data);
+    return this.http.post<any>(url, data, options).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+
+  getConsultadeDocumentosSolicitud(data: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
+    let options = { headers: headers };
+    let url = `${this.urlServer}/microserviciosRRHH/getConsultadeDocumentosSolicitud/${data.numero_siarh}/${data.solicitud_vacacion_id}`;
+    console.log(data);
+    return this.http.get<any>(url, options).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
   }
 
   updateSolicitudPaseSalida(data: any): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
     let options = { headers: headers };
-    let url = `${this.urlServer}/paseSalidaKSRRHH/updateSolicitudPaseSalida/${data.task_id}/${data.task_container_id}`;
+    let url = `${this.urlServer}/paseSalidaKSRRHH/actualizarTarea/${data.task_id}/${data.task_container_id}`;
     delete data.task_id;
     delete data.task_container_id;
     delete data.option;
-    return this.http.put<any>(url, data, options).pipe(
+    delete data.key_task_name_inicio;
+
+    let dt = {
+      solicitud: {
+        [data.kie_obj]: {
+          ...data
+        }
+      }
+    }
+
+    delete dt.solicitud[data.kie_obj].kie_obj;
+
+    console.log(dt);
+
+    return this.http.put<any>(url, dt, options).pipe(
       retry(1),
       catchError(this.handleError)
     );

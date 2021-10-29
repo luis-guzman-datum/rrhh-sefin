@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 
@@ -9,7 +9,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class FormVacacionesComponent implements OnInit {
 
-  
+
   submitted = false;
   _dataPSEdit: any;
 
@@ -82,15 +82,33 @@ export class FormVacacionesComponent implements OnInit {
     let data = {
       ...this.formPS.value,
       usuario_sso: userSesion.usuario_sso,
-      numero_siarh: userSesion.numero_siarh,
       nombre_usuario_sso: userSesion.primer_nombre + ' ' + userSesion.primer_apellido,
-      solicitud_estado_id:4
+      solicitud_estado_id: 3,
+      fecha_solicitud: this.formPS.value.fecha_solicitud.slice(0,10) + " 00:00",
+      fecha_inicio: this.formPS.value.fecha_inicio.slice(0,10) + " 00:00",
+      fecha_fin: this.formPS.value.fecha_fin.slice(0,10) + " 00:00",
     }
+
+    if(data.option=='com-doc-fis-dig'){
+    data = {
+        ...data,
+        solicitud_estado_id: 4
+      }
+    }
+
+    //verficar si siar existe
+    if (!data.numero_siarh) {
+      data = {
+        ...data,
+        numero_siarh: userSesion.numero_siarh,
+      }
+    }
+
     console.clear();
     console.log(data);
     if (this.formPS.valid) {
       this.btnSiguiente.emit(data);
-     // this.formPS.reset();
+      // this.formPS.reset();
     }
   }
 
@@ -99,14 +117,14 @@ export class FormVacacionesComponent implements OnInit {
     this.btnRegresar.emit(this.formPS.value);
   }
 
- 
+
   rechazar() {
     let userSesion: any = JSON.parse(sessionStorage.getItem('userInfo') || '{}');
     let data = {
       ...this.formPS.value,
       usuario_sso: userSesion.usuario_sso,
       numero_siarh: userSesion.numero_siarh,
-      solicitud_estado_id:5,
+      solicitud_estado_id: 5,
       nombre_usuario_sso: userSesion.primer_nombre + ' ' + userSesion.primer_apellido,
       hora_entrada_reloj: '',
       hora_salida_reloj: '',
@@ -143,10 +161,10 @@ export class FormVacacionesComponent implements OnInit {
       this.formPS.reset();
     }
   }
-  
 
- 
 
-  
+
+
+
 
 }

@@ -1,1 +1,81 @@
-<p>form-vacaciones-docs works!</p>
+<div class="row">
+    <div class="col-md-12">
+        <p class="lead">
+            <strong>Documentos</strong>
+        </p>
+        <input type="file" (change)="cargarDocs($event)">
+    </div>
+    <div class="col-md-12">
+        <div class="table-responsive scrollbar bg-white  mt-4 ">
+
+            <table class="table table-borderless table-striped fs--1 mb-0 table-sm">
+                <thead class="bg-200 text-900">
+                    <tr>
+                        <th>Archivo</th>
+                        <th>Extencion</th>
+                        <th>Verificacion archivo fisico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let d of documentos">
+                        <td>{{d.nombre_archivo}}</td>
+                        <td>{{d.extencion}}</td>
+                        <td>
+                            <button type="button" class="btn  btn-sm"
+                                [ngClass]="{'btn-success': d.verificar_archivos, 'btn-secondary': !d.verificar_archivos}"
+                                (click)="updateCarga(d)">
+                                <i class="fa fa-check"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="col-md-12 mt-2">
+                <button type="button" class="btn btn-primary btn-sm" (click)="enviarDocs()">Enviar Documentos</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-12 mt-4">
+        <p class="lead">
+            <strong>Documentos cargados</strong>
+        </p>
+    </div>
+    <div class="col-md-12">
+        <div class="table-responsive scrollbar bg-white   ">
+
+            <table class="table table-borderless table-striped fs--1 mb-0 table-sm">
+                <thead class="bg-200 text-900">
+                    <tr>
+                        <th>Archivo</th>
+                        <th>Extencion</th>
+                        <th>Verificacion archivo fisico</th>
+                        <th>Elimiar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let d of documentos2">
+                        <td>{{d.nombre_archivo}}</td>
+                        <td>{{d.extencion}}</td>
+                        <td>
+                            <button type="button" class="btn  btn-sm"
+                                [ngClass]="{'btn-success': d.verificar_archivos, 'btn-secondary': !d.verificar_archivos}"
+                                (click)="update(d)">
+                                <i class="fa fa-check"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm"
+                                (click)="eliminarDocumetosSolicitudVacaciones(d)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <pre>{{documentos2|json}}</pre> -->
+        </div>
+    </div>
+</div>

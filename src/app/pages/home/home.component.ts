@@ -48,7 +48,16 @@ export class HomeComponent implements OnInit {
   taskDashBoard() {
     if (this.token.token) {
       this.apiDashBoard.getDasboardTask().subscribe((respose) => {
-        this.dashBoardTask = respose.data.task_summary;
+
+        //ESTE FOR ES TEMPORAL
+        this.dashBoardTask = [];
+        for (let d of respose.data.task_summary) {
+          if (d.task_id != 403) {
+            this.dashBoardTask.push(d);
+          }
+        }
+
+        //  this.dashBoardTask = respose.data.task_summary;
       },
         (error) => {
           this.dashBoardTask = [];
@@ -77,6 +86,12 @@ export class HomeComponent implements OnInit {
           nombre_usuario_sso: userSesion.primer_nombre + ' ' + userSesion.primer_apellido,
           option: response.data.url_path
         }
+
+        this.dataPSEdit = {
+          ...this.dataPSEdit,
+          ...JSON.parse(response.data.json_pam).solicitud[response.data.kie_obj],
+          kie_obj: response.data.kie_obj
+        }
         console.log(this.dataPSEdit);
         this.openForm = true;
         this.moveTab('ingresar-tab');
@@ -99,21 +114,21 @@ export class HomeComponent implements OnInit {
         let userSesion: any = JSON.parse(sessionStorage.getItem('userInfo') || '{}');
 
         //temporal borrar
-       /* this.dataPSEdit = {
-          ...{
-            "numero_siarh": 2,
-            "expediente_id": 1,
-            "fecha_solicitud": "26/10/2021",
-            "fecha_inicio": "27/10/2021",
-            "fecha_fin": "28/10/2021",
-            "dias": "2",
-            "solicitud_estado_id": 4,
-            "observaciones": "cual",
-            "usuario_sso": "empleado1",
-            "vigente": "0",
-            "nombre_usuario_sso": "Pedro Gomez"
-          }
-        }*/
+        /* this.dataPSEdit = {
+           ...{
+             "numero_siarh": 2,
+             "expediente_id": 1,
+             "fecha_solicitud": "26/10/2021",
+             "fecha_inicio": "27/10/2021",
+             "fecha_fin": "28/10/2021",
+             "dias": "2",
+             "solicitud_estado_id": 4,
+             "observaciones": "cual",
+             "usuario_sso": "empleado1",
+             "vigente": "0",
+             "nombre_usuario_sso": "Pedro Gomez"
+           }
+         }*/
         //temporal borrar
 
         this.dataPSEdit = {
@@ -134,13 +149,10 @@ export class HomeComponent implements OnInit {
         this.dataPSEdit = {
           ...this.dataPSEdit,
           ...JSON.parse(response.data.json_pam).solicitud[response.data.kie_obj],
-          kie_obj:response.data.kie_obj
+          kie_obj: response.data.kie_obj
         }
-        
-
 
         console.log(this.dataPSEdit);
-
         this.apiDashBoard.getPeriodosVacaciones(this.dataPSEdit).subscribe(
           (response2) => {
             this.getPeriodosVacacionesList = response2.data;
@@ -195,23 +207,62 @@ export class HomeComponent implements OnInit {
     this.apiDashBoard.getProceosPath(data).subscribe((response) => {
       if (response.state == 'success') {
         this.apiDashBoard.getTaskInputByContainerAndTaskId(data).subscribe((response2) => {
-          this.dataPSEdit = response2.data.solicitud.solicitudes_pase_salida;
+
+
+
+          if (response2.data.solicitud.solicitudes_pase_salida) {
+            this.dataPSEdit = response2.data.solicitud.solicitudes_pase_salida;
+          }
+          else {
+            this.dataPSEdit = response2.data.solicitud;
+          }
+
+          if (response.data.url_path != 'rev-sol-jef' && response.data.url_path != 'rev-sol-dir' && response.data.url_path != 'rev-sol-op' && response.data.url_path != 'rev-sol-sug' && response.data.url_path != 'gen-car-rep-oper' && response.data.url_path !=  'com-doc-fis-dig') {
+            this.dataPSEdit = {
+              ...this.dataPSEdit,
+              hora_salida: this.dataPSEdit.hora_salida.split(' ')[1],
+              hora_entrada: this.dataPSEdit.hora_entrada.split(' ')[1],
+
+            }
+          }
+
           this.dataPSEdit = {
             ...this.dataPSEdit,
+            ...JSON.parse(response.data.json_pam).solicitud[response.data.kie_obj],
             task_container_id: response.data.nombre_contenedor,
             task_id: data.task_id,
-            hora_salida: this.dataPSEdit.hora_salida.split(' ')[1],
-            hora_entrada: this.dataPSEdit.hora_entrada.split(' ')[1],
+            kie_obj: response.data.kie_obj,
             option: response.data.url_path
           }
+
           if (response.data.url_path == 'ingresar-tab') {
             this.dataPSEdit = {
               ...this.dataPSEdit,
               solicitud_pase_salida_id: 1
             }
           }
-          this.openForm = true;
-          this.moveTab('ingresar-tab');
+
+          //gen-car-rep-oper
+
+          if (response.data.url_path != 'rev-sol-jef' && response.data.url_path != 'rev-sol-dir' && response.data.url_path != 'rev-sol-op' && response.data.url_path != 'rev-sol-sug' && response.data.url_path != 'gen-car-rep-oper' && response.data.url_path !=  'com-doc-fis-dig') {
+            this.openForm = true;
+            this.moveTab('ingresar-tab');
+          }
+          else {
+
+            this.apiDashBoard.getPeriodosVacaciones(this.dataPSEdit).subscribe(
+              (response2) => {
+                this.getPeriodosVacacionesList = response2.data;
+                console.warn('response.data', response2.data);
+              },
+              (error) => {
+                this.getPeriodosVacacionesList = [];
+              }
+            );
+
+            this.openFormVacas = true;
+            this.moveTab('vacaciones-form-tab');
+          }
         });
       }
     }, (error) => {
@@ -220,12 +271,22 @@ export class HomeComponent implements OnInit {
   }
 
 
+  enviarDocs() {
+
+  }
+
+
 
   btnAbortar(event: any) {
     this.apiDashBoard.getTaskInputByContainerAndTaskId(event).subscribe(
       (response) => {
         console.log(response);
-        this.btnRegresar(null);
+        this.apiDashBoard.pasesSalida(event).subscribe(
+          (response2) => {
+
+            this.btnRegresar(null);
+          }
+        );
 
       },
       (error) => {
@@ -267,8 +328,8 @@ export class HomeComponent implements OnInit {
   btnRegresar(event: any) {
     this.dataPSEdit = { option: 'pase-salida-tab' };
     this.openForm = false;
+    this.openFormVacas = false;
     this.taskDashBoard();
-    debugger;
     this.moveTab('pase-salida-tab');
   }
 

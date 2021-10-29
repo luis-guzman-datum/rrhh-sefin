@@ -29,6 +29,7 @@ export class FormPaseSalidaComponent implements OnInit {
     this.formPS.get('option')?.setValue(dataPSEdit.option);
     this.formPS.get('key_proceses_id')?.setValue(dataPSEdit.key_proceses_id);
     this.formPS.get('key_task_name_inicio')?.setValue(dataPSEdit.key_task_name_inicio);
+    this.formPS.get('kie_obj')?.setValue(dataPSEdit.kie_obj);
     this.formPS.get('task_container_id')?.setValue(dataPSEdit.task_container_id);
     this.formPS.get('task_id')?.setValue(dataPSEdit.task_id);
     this.formPS.get('numero_siarh')?.setValue(dataPSEdit.numero_siarh);
@@ -54,6 +55,7 @@ export class FormPaseSalidaComponent implements OnInit {
     key_task_name_inicio: new FormControl(''),
     task_id: new FormControl(''),
     task_container_id: new FormControl(''),
+    kie_obj: new FormControl(''),
     numero_siarh: new FormControl(''),
     expediente_id: new FormControl(''),
     solicitud_pase_salida_id: new FormControl(''),
