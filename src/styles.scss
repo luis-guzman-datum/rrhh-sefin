@@ -91,3 +91,20 @@ th {
 .table-borderless>thead>tr>th {
     border: none;
 }
+
+.text-nowrap {
+    white-space: nowrap!important;
+    color: #344050 !important;
+    text-decoration: none;
+}
+
+.theme-green .bs-datepicker-head {
+    background-color: #0d6efd !important;
+}
+.theme-green .bs-datepicker-body table td.week span {
+    color: #0d6efd !important;
+}
+
+.theme-green .bs-datepicker-body table td span.selected, .theme-green .bs-datepicker-body table td.selected span, .theme-green .bs-datepicker-body table td span[class*=select-]:after, .theme-green .bs-datepicker-body table td[class*=select-] span:after {
+    background-color:  #0d6efd !important;
+}

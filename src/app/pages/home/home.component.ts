@@ -16,6 +16,8 @@ export class HomeComponent implements OnInit {
   token: any;
   stringRoles: any;
   dashBoardTask: any[] = [];
+  filterQuery='';
+  p: number = 1;
 
   openForm = false;
   openFormVacas = false;
@@ -56,8 +58,6 @@ export class HomeComponent implements OnInit {
             this.dashBoardTask.push(d);
           }
         }
-
-        //  this.dashBoardTask = respose.data.task_summary;
       },
         (error) => {
           this.dashBoardTask = [];
@@ -113,24 +113,6 @@ export class HomeComponent implements OnInit {
       if (response.state == 'success') {
         let userSesion: any = JSON.parse(sessionStorage.getItem('userInfo') || '{}');
 
-        //temporal borrar
-        /* this.dataPSEdit = {
-           ...{
-             "numero_siarh": 2,
-             "expediente_id": 1,
-             "fecha_solicitud": "26/10/2021",
-             "fecha_inicio": "27/10/2021",
-             "fecha_fin": "28/10/2021",
-             "dias": "2",
-             "solicitud_estado_id": 4,
-             "observaciones": "cual",
-             "usuario_sso": "empleado1",
-             "vigente": "0",
-             "nombre_usuario_sso": "Pedro Gomez"
-           }
-         }*/
-        //temporal borrar
-
         this.dataPSEdit = {
           ...this.dataPSEdit,
           task_id: '',
@@ -170,35 +152,6 @@ export class HomeComponent implements OnInit {
     }, (error) => {
 
     });
-
-    /* let reponse:any = {
-     "solicitudVacacion": {
-       "com.myspace.prueba321.SolicitudVacacionGerh": {
-         "numero_siarh": 2,
-         "expediente_id": 1,
-         "fecha_solicitud": "27/10/2021 10:00",
-         "fecha_inicio": "27/10/2021 10:00",
-         "fecha_fin": "27/10/2021 10:00",
-         "dias": 5,
-         "solicitud_estado_id": 1,
-         "observaciones": "cual",
-         "usuario_sso": "empleado1",
-         "vigente": "0",
-         "nombre_usuario_sso": "Pedro Gomez",
-         "solicitud_vacacion_id": 0
-       }
-     }
-   }
-
-   this.dataPSEdit = {
-     ...this.dataPSEdit,
-     ...reponse.solicitudVacacion["com.myspace.prueba321.SolicitudVacacionGerh"]
-   }
-
-   console.log(this.dataPSEdit);
-   this.openFormVacas = true;
-   this.moveTab('vacaciones-form-tab');
-   */
 
   }
 

@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { listLocales } from 'ngx-bootstrap/chronos';
+import { Editor } from 'ngx-editor';
 
 @Component({
   selector: 'app-form-vacaciones',
@@ -12,6 +14,9 @@ export class FormVacacionesComponent implements OnInit {
 
   submitted = false;
   _dataPSEdit: any;
+  bsInlineRangeValue!: Date[];
+
+
 
   get f() {
     return this.formPS.controls;
@@ -38,6 +43,7 @@ export class FormVacacionesComponent implements OnInit {
     this.formPS.get('expediente_id')?.setValue(dataPSEdit.expediente_id);
 
     this.formPS.get('solicitud_vacacion_id')?.setValue(dataPSEdit.solicitud_vacacion_id);
+    this.formPS.get('fechas_vacas')?.setValue(dataPSEdit.fechas_vacas);
     this.formPS.get('fecha_solicitud')?.setValue(dataPSEdit.fecha_solicitud);
     this.formPS.get('fecha_inicio')?.setValue(dataPSEdit.fecha_inicio);
     this.formPS.get('fecha_fin')?.setValue(dataPSEdit.fecha_fin);
@@ -62,6 +68,7 @@ export class FormVacacionesComponent implements OnInit {
     expediente_id: new FormControl(''),
     solicitud_vacacion_id: new FormControl(''),
     fecha_solicitud: new FormControl(''),
+    fechas_vacas: new FormControl(''),
     fecha_inicio: new FormControl(''),
     fecha_fin: new FormControl(''),
     dias: new FormControl(''),
@@ -72,9 +79,19 @@ export class FormVacacionesComponent implements OnInit {
     nombre_usuario_sso: new FormControl(''),
   });
 
+
   constructor() { }
 
+  editor!: Editor;
+  html!: '';
+
   ngOnInit(): void {
+    this.editor = new Editor();
+  }
+
+  // make sure to destory the editor
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 
   submit() {
@@ -84,13 +101,13 @@ export class FormVacacionesComponent implements OnInit {
       usuario_sso: userSesion.usuario_sso,
       nombre_usuario_sso: userSesion.primer_nombre + ' ' + userSesion.primer_apellido,
       solicitud_estado_id: 3,
-      fecha_solicitud: this.formPS.value.fecha_solicitud.slice(0,10) + " 00:00",
-      fecha_inicio: this.formPS.value.fecha_inicio.slice(0,10) + " 00:00",
-      fecha_fin: this.formPS.value.fecha_fin.slice(0,10) + " 00:00",
+      fecha_solicitud: this.formPS.value.fecha_solicitud.slice(0, 10) + " 00:00",
+      fecha_inicio: this.formPS.value.fecha_inicio.slice(0, 10) + " 00:00",
+      fecha_fin: this.formPS.value.fecha_fin.slice(0, 10) + " 00:00",
     }
 
-    if(data.option=='com-doc-fis-dig'){
-    data = {
+    if (data.option == 'com-doc-fis-dig') {
+      data = {
         ...data,
         solicitud_estado_id: 4
       }
@@ -163,7 +180,17 @@ export class FormVacacionesComponent implements OnInit {
   }
 
 
+  calcularFechas() {
+   
+      let fechaInicio = new Date(this.formPS.value.fechas_vacas[0]).getTime();
+      let fechaFin = new Date(this.formPS.value.fechas_vacas[1]).getTime();
+      let diff = fechaFin - fechaInicio;
 
+      console.log(diff / (1000 * 60 * 60 * 24));
+      this.formPS.get('dias')?.setValue((diff / (1000 * 60 * 60 * 24)) + 1);
+     // return ((diff / (1000 * 60 * 60 * 24)) + 1).toString();
+    
+  }
 
 
 
