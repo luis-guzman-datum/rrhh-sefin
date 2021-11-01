@@ -3,6 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales } from 'ngx-bootstrap/chronos';
 import { Editor } from 'ngx-editor';
+import { DatePipe } from '@angular/common';
+import { DashBoardService } from 'src/app/services/DashBoardService';
 
 @Component({
   selector: 'app-form-vacaciones',
@@ -43,7 +45,7 @@ export class FormVacacionesComponent implements OnInit {
     this.formPS.get('expediente_id')?.setValue(dataPSEdit.expediente_id);
 
     this.formPS.get('solicitud_vacacion_id')?.setValue(dataPSEdit.solicitud_vacacion_id);
-    this.formPS.get('fechas_vacas')?.setValue(dataPSEdit.fechas_vacas);
+
     this.formPS.get('fecha_solicitud')?.setValue(dataPSEdit.fecha_solicitud);
     this.formPS.get('fecha_inicio')?.setValue(dataPSEdit.fecha_inicio);
     this.formPS.get('fecha_fin')?.setValue(dataPSEdit.fecha_fin);
@@ -54,6 +56,15 @@ export class FormVacacionesComponent implements OnInit {
     this.formPS.get('usuario_sso')?.setValue(dataPSEdit.usuario_sso);
     this.formPS.get('vigente')?.setValue(dataPSEdit.vigente);
     this.formPS.get('nombre_usuario_sso')?.setValue(dataPSEdit.nombre_usuario_sso);
+
+    this.getInfoEmpleadoID(dataPSEdit.numero_siarh);
+    if (dataPSEdit.observaciones)
+      this.html = JSON.parse(dataPSEdit.observaciones);
+
+    /*let array = [ this.datepipe.transform(dataPSEdit.fecha_inicio, 'full'), this.datepipe.transform(dataPSEdit.fecha_fin, 'full')];
+    if (array)
+      this.formPS.get('fechas_vacas')?.setValue(array);*/
+
   }
 
 
@@ -80,18 +91,30 @@ export class FormVacacionesComponent implements OnInit {
   });
 
 
-  constructor() { }
+  constructor(public datepipe: DatePipe, private apiD: DashBoardService) { }
 
   editor!: Editor;
-  html!: '';
+  html!: any;
 
   ngOnInit(): void {
     this.editor = new Editor();
   }
 
+  empleadoSolicitante = '';
+
   // make sure to destory the editor
   ngOnDestroy(): void {
     this.editor.destroy();
+  }
+
+
+  getInfoEmpleadoID(siar: any) {
+    this.apiD.getInfoEmpleadoID(siar).subscribe(
+      (response3) => {
+        console.log(response3);
+        this.empleadoSolicitante = response3.data.primer_nombre + " " + response3.data.primer_apellido;
+      }
+    )
   }
 
   submit() {
@@ -101,9 +124,10 @@ export class FormVacacionesComponent implements OnInit {
       usuario_sso: userSesion.usuario_sso,
       nombre_usuario_sso: userSesion.primer_nombre + ' ' + userSesion.primer_apellido,
       solicitud_estado_id: 3,
-      fecha_solicitud: this.formPS.value.fecha_solicitud.slice(0, 10) + " 00:00",
-      fecha_inicio: this.formPS.value.fecha_inicio.slice(0, 10) + " 00:00",
-      fecha_fin: this.formPS.value.fecha_fin.slice(0, 10) + " 00:00",
+      fecha_solicitud: this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm'),
+      fecha_inicio: this.datepipe.transform(this.formPS.value.fecha_inicio, 'dd/MM/yyyy HH:mm'),
+      fecha_fin: this.datepipe.transform(this.formPS.value.fecha_fin, 'dd/MM/yyyy HH:mm'),
+      observaciones: JSON.stringify(this.html)
     }
 
     if (data.option == 'com-doc-fis-dig') {
@@ -181,15 +205,15 @@ export class FormVacacionesComponent implements OnInit {
 
 
   calcularFechas() {
-   
-      let fechaInicio = new Date(this.formPS.value.fechas_vacas[0]).getTime();
-      let fechaFin = new Date(this.formPS.value.fechas_vacas[1]).getTime();
-      let diff = fechaFin - fechaInicio;
 
-      console.log(diff / (1000 * 60 * 60 * 24));
-      this.formPS.get('dias')?.setValue((diff / (1000 * 60 * 60 * 24)) + 1);
-     // return ((diff / (1000 * 60 * 60 * 24)) + 1).toString();
-    
+    let fechaInicio = new Date(this.formPS.value.fecha_inicio).getTime();
+    let fechaFin = new Date(this.formPS.value.fecha_fin).getTime();
+    let diff = fechaFin - fechaInicio;
+
+    console.log(diff / (1000 * 60 * 60 * 24));
+    this.formPS.get('dias')?.setValue((diff / (1000 * 60 * 60 * 24)) + 1);
+    // return ((diff / (1000 * 60 * 60 * 24)) + 1).toString();
+
   }
 
 

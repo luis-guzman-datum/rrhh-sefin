@@ -62,7 +62,20 @@ export class DashBoardService {
     delete data.key_proceses_id;
     delete data.key_task_name_inicio;
     delete data.kie_obj;
+    delete data.fechas_vacas;
     return this.http.put<any>(url, data, options).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  ///actualizarTarea/{id}/{kieContainerID}
+
+  actualizarTarea(data: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
+    let options = { headers: headers };
+    let url = `${this.urlServer}/paseSalidaKSRRHH/actualizarTarea/${data.task_id}/${data.task_container_id}`;
+    return this.http.post<any>(url, data, options).pipe(
       retry(1),
       catchError(this.handleError)
     );
@@ -102,7 +115,7 @@ export class DashBoardService {
   abortSolicitudPaseSalida(data: any): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
     let options = { headers: headers };
-    let url = `${this.urlServer}/microserviciosRRHH/abortSolicitudPaseSalida/${data.task_id}/${data.task_container_id}`;
+    let url = `${this.urlServer}/paseSalidaKSRRHH/abortSolicitudPaseSalida/${data.task_proc_inst_id}/${data.task_container_id}`;
     return this.http.delete<any>(url, options).pipe(
       retry(1),
       catchError(this.handleError)
@@ -118,6 +131,7 @@ export class DashBoardService {
     delete data.option;
     delete data.key_proceses_id;
     delete data.key_task_name_inicio;
+    delete data.fechas_vacas;
 
     let dt = {
       solicitud: {
@@ -162,6 +176,16 @@ export class DashBoardService {
   }
 
 
+  getInfoEmpleadoID(idEmpleadoSiar: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
+    let options = { headers: headers };
+    let url = `${this.urlServer}/microserviciosRRHH/getInfoEmpleadoID/${idEmpleadoSiar}`;
+    return this.http.get<any>(url, options).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
   getConsultadeDocumentosSolicitud(data: any): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token });
     let options = { headers: headers };
@@ -181,6 +205,7 @@ export class DashBoardService {
     delete data.task_container_id;
     delete data.option;
     delete data.key_task_name_inicio;
+    delete data.fechas_vacas;
 
     let dt = {
       solicitud: {
@@ -211,6 +236,7 @@ export class DashBoardService {
     delete data.task_id;
     delete data.task_container_id;
     delete data.option;
+    delete data.fechas_vacas;
     return this.http.get<any>(url, options).pipe(
       retry(1),
       catchError(this.handleError)

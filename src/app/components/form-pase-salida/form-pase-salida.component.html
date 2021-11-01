@@ -1,111 +1,166 @@
 <div class="row bg-white">
-    <form [formGroup]="formPS" (ngSubmit)='submit()' class="row bg-white">
-        <div class="form-group col-md-6 mt-2" style="display: none;">
-            <label for="numero_siarh">Número SIARH</label>
-            <input type="text" name="numero_siarh" formControlName='numero_siarh' class="form-control form-control-sm">
-        </div>
-        <div class="form-group col-md-6 mt-2">
-            <label for="expediente_id">expediente_id</label>
-            <input type="text" name="expediente_id" formControlName='expediente_id'
-                class="form-control form-control-sm">
-        </div>
-        <div class="form-group col-md-6 mt-2">
-            <label for="solicitud_pase_salida_id">solicitud_pase_salida_id</label>
-            <input type="text" name="solicitud_pase_salida_id" formControlName='solicitud_pase_salida_id'
-                class="form-control form-control-sm">
-        </div>
-        <div class="form-group col-md-12 mt-2">
-            <label for="solicitud_pase_salida_tipo_id">solicitud_pase_salida_tipo_id</label>
 
-            <select name="solicitud_pase_salida_tipo_id" formControlName='solicitud_pase_salida_tipo_id'
-                class="form-control form-control-sm">
-                <option *ngFor="let d of tiposDePasesDeSalida" value="{{d.value}}">{{d.descripcion}}</option>
-            </select>
-        </div>
-        <div class="form-group col-md-6 mt-2">
-            <label for="fecha">fecha</label>
-            <input type="text" mask="00/00/0000" name="fecha" formControlName='fecha'
-                class="form-control form-control-sm" [showMaskTyped]="true" [dropSpecialCharacters]="false">
-        </div>
-        <div class="form-group col-md-6 mt-2">
-            <label for="solicitud_estado_id">solicitud_estado_id</label>
-            <input type="text" name="solicitud_estado_id" formControlName='solicitud_estado_id'
-                class="form-control form-control-sm">
-        </div>
-        <div class="form-group col-md-6 mt-2">
-            <label for="hora_salida">hora_salida</label>
-            <input type="text" mask="00:00" name="hora_salida" formControlName='hora_salida'
-                class="form-control form-control-sm" [showMaskTyped]="true" [dropSpecialCharacters]="false">
-        </div>
-        <div class="form-group col-md-6 mt-2">
-            <label for="hora_entrada">hora_entrada</label>
-            <input type="text" mask="00:00" name="hora_entrada" formControlName='hora_entrada'
-                class="form-control form-control-sm" [showMaskTyped]="true" [dropSpecialCharacters]="false">
-        </div>
-        <div class="form-group col-md-12 mt-2">
-            <label for="asunto">asunto</label>
-            <input type="text" name="asunto" formControlName='asunto' class="form-control form-control-sm">
-        </div>
-        <div class="form-group col-md-12 mt-2">
-            <label for="observaciones">observaciones</label>
+
+    <div class="col-md-12">
+        <p class="lead mb-1">Solictud de pase de salida</p>
+        <h4> <i class="fa fa-user"></i> {{empleadoSolicitante}}</h4>
+    </div>
+
+    <div class="col-md-12 mt-3">
+        <form [formGroup]="formPS" (ngSubmit)='submit()' class="row bg-white">
+            <div class="form-group col-md-6 mt-2" style="display: none;">
+                <label for="numero_siarh">Número SIARH</label>
+                <input type="text" name="numero_siarh" formControlName='numero_siarh'
+                    class="form-control form-control-sm">
+            </div>
+            <div class="form-group col-md-6 mt-2" style="display: none;">
+                <label for="expediente_id">expediente_id</label>
+                <input type="text" name="expediente_id" formControlName='expediente_id'
+                    class="form-control form-control-sm">
+            </div>
+            <div class="form-group col-md-6 mt-2" style="display: none;">
+                <label for="solicitud_pase_salida_id">solicitud_pase_salida_id</label>
+                <input type="text" name="solicitud_pase_salida_id" formControlName='solicitud_pase_salida_id'
+                    class="form-control form-control-sm">
+            </div>
+
+            
+
+            <div class="form-group col-md-12 mt-2">
+                <label for="asunto">Asunto</label>
+                <input type="text" name="asunto" formControlName='asunto' class="form-control form-control-sm">
+            </div>
+
+            <div class="form-group col-md-12 mt-2">
+                <label for="solicitud_pase_salida_tipo_id">Selecciona tipo de pase de salida</label>
+
+                <select name="solicitud_pase_salida_tipo_id" formControlName='solicitud_pase_salida_tipo_id'
+                    class="form-control form-control-sm">
+                    <option *ngFor="let d of tiposDePasesDeSalida" value="{{d.value}}">{{d.descripcion}}</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 mt-2">
+                
+                <label for="fecha">Fecha</label>
+                <input type="text"
+                       placeholder="DD/MM/AAAA"
+                       bsDatepicker formControlName='fecha'
+                       class="form-control form-control-sm" 
+                       [bsConfig]="{ isAnimated: true }"
+                       >
+              </div>
+           
+           
+            <!-- <div class="form-group col-md-4 mt-2">
+                <label for="fecha">Fecha</label>
+                <input type="text" mask="00/00/0000" name="fecha" formControlName='fecha'
+                    class="form-control form-control-sm" [showMaskTyped]="true" [dropSpecialCharacters]="false">
+
+                    
+            </div> -->
+
+           
+            <div class="form-group col-md-4 mt-2" style="display: none;">
+                <label for="solicitud_estado_id">solicitud_estado_id</label>
+                <input type="text" name="solicitud_estado_id" formControlName='solicitud_estado_id'
+                    class="form-control form-control-sm">
+            </div>
+            <div class="form-group col-md-4 mt-2 d-flex justify-content-center">
+                <label for="hora_salida">Hora de salida</label>
+                <timepicker name="hora_salida" formControlName='hora_salida' ></timepicker>
+             <!--    <label for="hora_salida">Hora de salida</label>
+                <input type="text" mask="00:00" name="hora_salida" formControlName='hora_salida'
+                    class="form-control form-control-sm" [showMaskTyped]="true" [dropSpecialCharacters]="false"> -->
+            </div>
+            <div class="form-group col-md-4 mt-2 d-flex justify-content-center">
+                <label for="hora_entrada">Hora de entrada</label>
+                <timepicker name="hora_salida" formControlName='hora_entrada' [min]="formPS.value.hora_salida"></timepicker>
+
+               
+            </div>
+            
+            <div class="form-group col-md-12" *ngIf="formPS.value.hora_salida>formPS.value.hora_entrada">
+                <pre class="alert alert-warning">La hora de salida debe ser mayor a la hora de entrada</pre>
+            </div>
+
+            <div class="form-group col-md-12 mt-2">
+                <label for="observaciones ">Observación</label>
+                <div class="NgxEditor__Wrapper mt-1">
+                    <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+                    <ngx-editor [editor]="editor" [(ngModel)]="html" [disabled]="false" [placeholder]="'Detalla acá...'"
+                        name="observaciones"  [ngModelOptions]="{standalone: true}">
+                    </ngx-editor>
+                   
+                </div>
+            </div>
+            <!-- <div class="form-group col-md-12 mt-2">
+            <label for="observaciones">Observación</label>
             <textarea name="observaciones" formControlName='observaciones'
                 class="form-control form-control-sm"></textarea>
-        </div>
+        </div> -->
 
 
-        <div class="form-group col-md-6 mt-2" style="display: none;">
-            <label for="hora_salida_reloj">hora_salida_reloj</label>
-            <input type="datetime-local" name="hora_salida_reloj" formControlName='hora_salida_reloj'
-                class="form-control form-control-sm">
-        </div>
 
-        <div class="form-group col-md-6 mt-2" style="display: none;">
-            <label for="hora_entrada_reloj">hora_entrada_reloj</label>
-            <input type="datetime-local" name="hora_entrada_reloj" formControlName='hora_entrada_reloj'
-                class="form-control form-control-sm">
-        </div>
+            <div class="form-group col-md-6 mt-2" style="display: none;">
+                <label for="hora_salida_reloj">hora_salida_reloj</label>
+                <input type="datetime-local" name="hora_salida_reloj" formControlName='hora_salida_reloj'
+                    class="form-control form-control-sm">
+            </div>
 
-        <div class="form-group col-md-6 mt-2" style="display: none;">
-            <label for="usuario_sso">usuario_sso</label>
-            <input type="text" name="usuario_sso" formControlName='usuario_sso' class="form-control form-control-sm">
-        </div>
+            <div class="form-group col-md-6 mt-2" style="display: none;">
+                <label for="hora_entrada_reloj">hora_entrada_reloj</label>
+                <input type="datetime-local" name="hora_entrada_reloj" formControlName='hora_entrada_reloj'
+                    class="form-control form-control-sm">
+            </div>
 
-        <div class="form-group col-md-6 mt-2" style="display: none;">
-            <label for="nombre_usuario_sso">nombre_usuario_sso</label>
-            <input type="text" name="nombre_usuario_sso" formControlName='nombre_usuario_sso'
-                class="form-control form-control-sm">
-        </div>
+            <div class="form-group col-md-6 mt-2" style="display: none;">
+                <label for="usuario_sso">usuario_sso</label>
+                <input type="text" name="usuario_sso" formControlName='usuario_sso'
+                    class="form-control form-control-sm">
+            </div>
 
-        <div class="form-group mt-4 mb-5">
-            <div class="row justify-content-end">
-                <div class="col-md-2 d-grid gap-2">
-                    <button type="submit" class="btn btn-sm btn-primary"> {{(this.formPS.value.task_id==null||
-                        this.formPS.value.task_id=='')?'Crear': (this.formPS.value.option=='ingresar-tab' &&
-                        (this.formPS.value.task_id!=null&&
-                        this.formPS.value.task_id!=''))?'Enviar': 'Aprobar'}}</button>
-                </div>
+            <div class="form-group col-md-6 mt-2" style="display: none;">
+                <label for="nombre_usuario_sso">nombre_usuario_sso</label>
+                <input type="text" name="nombre_usuario_sso" formControlName='nombre_usuario_sso'
+                    class="form-control form-control-sm">
+            </div>
 
-                <div class="col-md-2 d-grid gap-2" *ngIf="(this.formPS.value.option!='ingresar-tab')">
-                    <button type="button" (click)='rechazar()' class="btn btn-sm btn-warning">Rechazar</button>
-                </div>
-                <div class="col-md-2 d-grid gap-2" *ngIf="(
+            
+
+            <div class="form-group mt-4 mb-5">
+                <div class="row justify-content-end">
+                    <div class="col-md-2 d-grid gap-2">
+                   <!--      [disabled]='formPS.invalid' -->
+                        <button type="submit" class="btn btn-sm btn-primary" [disabled]='formPS.invalid'> {{(this.formPS.value.task_id==null||
+                            this.formPS.value.task_id=='')?'Crear': (this.formPS.value.option=='ingresar-tab' &&
+                            (this.formPS.value.task_id!=null&&
+                            this.formPS.value.task_id!=''))?'Enviar': 'Aprobar'}}</button>
+                    </div>
+
+                    <div class="col-md-2 d-grid gap-2" *ngIf="(this.formPS.value.option!='ingresar-tab')">
+                        <button type="button" (click)='rechazar()' class="btn btn-sm btn-warning">Rechazar</button>
+                    </div>
+                    <div class="col-md-2 d-grid gap-2" *ngIf="(
                     this.formPS.value.option=='ingresar-tab')
                     &&
                     (this.formPS.value.task_id!=null
                     &&
                     this.formPS.value.task_id!='')
                     ">
-                    <button type="button" (click)='abortar()' class="btn btn-sm btn-danger">Abortar</button>
-                </div>
-                <div class="col-md-2 d-grid gap-2">
-                    <button type="button" (click)='regresar()' class="btn btn-sm btn-secondary">Regresar</button>
+                        <button type="button" (click)='abortar()' class="btn btn-sm btn-danger">Abortar</button>
+                    </div>
+                    <div class="col-md-2 d-grid gap-2">
+                        <button type="button" (click)='regresar()' class="btn btn-sm btn-secondary">Regresar</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-12">
-            <pre>{{formPS.value|json}}</pre>
-        </div>
-    </form>
+           <!--  <div class="col-md-12">
+                <pre>{{formPS.value|json}}</pre>
+            </div> -->
+        </form>
+
+        
+    </div>
 
 </div>

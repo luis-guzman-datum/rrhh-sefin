@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,6 +33,7 @@ import { VacacionesComponent } from './pages/vacaciones/vacaciones.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxDataTableModule } from 'angular-9-datatable';
 import { NgxEditorModule } from 'ngx-editor';
+import { DatePipe } from '@angular/common';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -75,12 +77,14 @@ const keycloakSecurityService = new KeycloakSecurityService();
     NgxPaginationModule,
     NgxDataTableModule,
     BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot(),
     NgxEditorModule
   ],
   providers: [
     { provide: KeycloakSecurityService, useValue: keycloakSecurityService },
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptorService, multi: true },
-    ApiService
+    ApiService,
+    DatePipe
   ],
   //bootstrap: [AppComponent],
   entryComponents: [AppComponent]

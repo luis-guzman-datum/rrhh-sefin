@@ -1,4 +1,5 @@
 import { state } from '@angular/animations';
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DashBoardService } from 'src/app/services/DashBoardService';
 declare var $: any;
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit {
   token: any;
   stringRoles: any;
   dashBoardTask: any[] = [];
-  filterQuery='';
+  filterQuery = '';
   p: number = 1;
 
   openForm = false;
@@ -26,7 +27,7 @@ export class HomeComponent implements OnInit {
   getSolicitudVacacionesGerhbySiarhList: any[] = [];
   getPeriodosVacacionesList: any[] = [];
 
-  constructor(private apiDashBoard: DashBoardService) {
+  constructor(private apiDashBoard: DashBoardService,  public datepipe: DatePipe) {
   }
 
   ngOnInit(): void {
@@ -170,14 +171,7 @@ export class HomeComponent implements OnInit {
             this.dataPSEdit = response2.data.solicitud;
           }
 
-          if (response.data.url_path != 'rev-sol-jef' && response.data.url_path != 'rev-sol-dir' && response.data.url_path != 'rev-sol-op' && response.data.url_path != 'rev-sol-sug' && response.data.url_path != 'gen-car-rep-oper' && response.data.url_path !=  'com-doc-fis-dig') {
-            this.dataPSEdit = {
-              ...this.dataPSEdit,
-              hora_salida: this.dataPSEdit.hora_salida.split(' ')[1],
-              hora_entrada: this.dataPSEdit.hora_entrada.split(' ')[1],
-
-            }
-          }
+         
 
           this.dataPSEdit = {
             ...this.dataPSEdit,
@@ -185,7 +179,8 @@ export class HomeComponent implements OnInit {
             task_container_id: response.data.nombre_contenedor,
             task_id: data.task_id,
             kie_obj: response.data.kie_obj,
-            option: response.data.url_path
+            option: response.data.url_path,
+            task_proc_inst_id:data.task_proc_inst_id
           }
 
           if (response.data.url_path == 'ingresar-tab') {
@@ -197,7 +192,7 @@ export class HomeComponent implements OnInit {
 
           //gen-car-rep-oper
 
-          if (response.data.url_path != 'rev-sol-jef' && response.data.url_path != 'rev-sol-dir' && response.data.url_path != 'rev-sol-op' && response.data.url_path != 'rev-sol-sug' && response.data.url_path != 'gen-car-rep-oper' && response.data.url_path !=  'com-doc-fis-dig') {
+          if (response.data.url_path != 'vac-add-sol' && response.data.url_path != 'rev-sol-jef' && response.data.url_path != 'rev-sol-dir' && response.data.url_path != 'rev-sol-op' && response.data.url_path != 'rev-sol-sug' && response.data.url_path != 'gen-car-rep-oper' && response.data.url_path != 'com-doc-fis-dig') {
             this.openForm = true;
             this.moveTab('ingresar-tab');
           }
@@ -234,7 +229,7 @@ export class HomeComponent implements OnInit {
     this.apiDashBoard.getTaskInputByContainerAndTaskId(event).subscribe(
       (response) => {
         console.log(response);
-        this.apiDashBoard.pasesSalida(event).subscribe(
+        this.apiDashBoard.abortSolicitudPaseSalida(event).subscribe(
           (response2) => {
 
             this.btnRegresar(null);

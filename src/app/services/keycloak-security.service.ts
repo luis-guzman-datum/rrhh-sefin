@@ -18,7 +18,7 @@ export class KeycloakSecurityService {
       this.keycloak = new Keycloak({
         url: 'https://sso-desa-mdw-pool.apps.galel.sefin.gob.hn/auth',
         realm: 'pam-sso',
-        clientId: 'sefin_node_rrhh_client' //dashboard
+        clientId: 'dashboard' //dashboard, sefin_node_rrhh_client
       });
       this.keycloak.init({
         // onLoad: 'login-required'
