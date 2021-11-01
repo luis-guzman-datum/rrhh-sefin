@@ -28,6 +28,14 @@
                             </button>
                         </td>
                     </tr>
+                    <tr  *ngIf=' documentos.length==0'>
+                        <td colspan="4" class="text-center">
+                         <p style="font-size: 50px;"><i class="fa fa-bullhorn" aria-hidden="true"></i></p>
+                         <p class="mb-3">
+                            <strong> No hay registros</strong>
+                         </p>
+                        </td>
+                     </tr>
                 </tbody>
             </table>
 
@@ -72,6 +80,14 @@
                                 <i class="fa fa-trash"></i>
                             </button>
                         </td>
+                    </tr>
+                    <tr  *ngIf=' documentos2.length==0'>
+                       <td colspan="4" class="text-center">
+                        <p style="font-size: 50px;"><i class="fa fa-bullhorn" aria-hidden="true"></i></p>
+                        <p class="mb-3">
+                           <strong> No hay registros</strong>
+                        </p>
+                       </td>
                     </tr>
                 </tbody>
             </table>

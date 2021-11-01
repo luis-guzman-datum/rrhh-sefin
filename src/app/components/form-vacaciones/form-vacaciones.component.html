@@ -110,7 +110,7 @@
                     class="form-control form-control-sm">
             </div>
 
-            <div class="form-group mt-4 mb-5" *ngIf="formPS.value.option=='gen-car-rep-oper'">
+            <div class="form-group mt-4 mb-5" *ngIf="formPS.value.option=='gen-car-rep-oper' || formPS.value.option=='com-doc-fis-dig' ">
                 <app-form-vacaciones-docs [formPS]="formPS.value"></app-form-vacaciones-docs>
             </div>
 
@@ -142,9 +142,9 @@
                 </div>
             </div>
 
-            <div class="col-md-12">
+            <!-- <div class="col-md-12">
                 <pre>{{formPS.value|json}}</pre>
-            </div>
+            </div> -->
         </form>
     </div>
 
